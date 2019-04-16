@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Review, Categories, Order, Cart} = require('../server/db/models')
+const {User, Review, Categories, Order, Cart, Product} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -19,6 +19,32 @@ async function seed() {
     User.create({ email: 'winston@email.com', firstName: 'Winston', lastName: 'Churchill', address: '279 Kool Kids drive', password: 'laterLozers' }),
     User.create({ email: 'plato@email.com', firstName: 'Plato', lastName: 'Philosopher', address: '6879 Herring Avenue', password: 'notinacave' })
   ])
+const products = await Promise.all([
+  Product.create({
+    name: 'Freedom of Speach', price: 10, status: 'In Stock', description: 'Freedom of Speach is naturally soured in the brew kettle and fermented out dry with a lower alcohol level. Our easy-drinking session sour demonstrates a clean tartness, balanced out by an assembly of ripe peach flavor. Exercise your right to refreshment.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Freedom of Press', price: 10, status: 'In Stock', description: 'Keep currant with the latest entry in our session sour series-—sweet, earthy berry flavors from black currants to complement this 140 calorie, easy-drinking, lightly tart ale.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FinalFreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Rosa', price: 10, status: 'In Stock', description: 'A highly drinkable Golden Ale steeped with hibiscus, resulting in a natural tartness and slight pink hue.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/Rosa-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 6, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Sun Crusher', price: 10, status: 'In Stock', description: 'A crushable ale to celebrate the end of winter and rejoice the coming of warm weather!', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/SunCrusher-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Anti-Hero', price: 10, status: 'In Stock', description: 'Our flagship IPA is supremely aromatic, crisp, and drinkable.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/antihero-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Eugene', price: 10, status: 'In Stock', description: 'A striking, robust porter full of warmth and chocolate malt.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/eugene-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Cross of Gold', price: 10, status: 'In Stock', description: 'An easy drinking golden ale for everyone.  Brewed to be crisp and refreshing with a bit of wheat malt for body and a delicate hop finish.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/COG-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution'
+  }),
+  Product.create({
+    name: 'Rev Pils', price: 10, status: 'In Stock', description: 'Our Chicago Pilsner. Brewed traditionally German, with a slightly American approach.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/RevPils-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 5, brewery: 'Revolution'
+  }),
+])
 
   const orders = await Promise.all([
     Order.create({created_at: '2019-01-29 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1234-60657', total:'10000'}),
@@ -68,8 +94,11 @@ async function seed() {
   console.log(`seeded ${categories.length} categories`)
   console.log(`seeded ${review.length} reviews`)
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
+
+
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
