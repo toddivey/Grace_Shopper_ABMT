@@ -2,8 +2,6 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-
-//Two notes, first what should be required. Second, not sure what is up with all this other stuff
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
@@ -35,15 +33,6 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       notEmpty: true,
-    },
-  },
-  isOfAge: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      //Is this correct??
-      is: true
     },
   },
   createdAt: {

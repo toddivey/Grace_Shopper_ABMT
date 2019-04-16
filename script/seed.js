@@ -8,8 +8,16 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'cody@email.com', firstName: 'Cody', lastName: 'theDog', address: '123 Fake Street', password: '123secure'}),
+    User.create({ email: 'fred@email.com', firstName: 'Fred', lastName: 'theCat', address: '554 Ashland Avenue', password: '123pasword' }),
+    User.create({ email: 'kat@email.com', firstName: 'Kat', lastName: 'McPherson', address: '234 Elm Street', password: '12345' }),
+    User.create({ email: 'sam@email.com', firstName: 'Sam', lastName: 'Calagione', address: '4567 Fun Street', password: 'funfunfun' }),
+    User.create({ email: 'jesse@email.com', firstName: 'Jesse', lastName: 'Houck', address: '10 Downing Street', password: 'brewingitup' }),
+    User.create({ email: 'sylvia@email.com', firstName: 'Sylvia', lastName: 'Plath', address: '902 First street', password: 'belljarring' }),
+    User.create({ email: 'bailey@email.com', firstName: 'Bailey', lastName: 'Warren', address: '5346 Sheridan Place', password: 'neverstoprunning' }),
+    User.create({ email: 'ray@email.com', firstName: 'Ray', lastName: 'Bradbury', address: '450 Learning Place', password: 'here2learn' }),
+    User.create({ email: 'winston@email.com', firstName: 'Winston', lastName: 'Churchill', address: '279 Kool Kids drive', password: 'laterLozers' }),
+    User.create({ email: 'plato@email.com', firstName: 'Plato', lastName: 'Philosopher', address: '6879 Herring Avenue', password: 'notinacave' })
   ])
 
   console.log(`seeded ${users.length} users`)
