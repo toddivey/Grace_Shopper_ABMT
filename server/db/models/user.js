@@ -2,13 +2,56 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+
+//Two notes, first what should be required. Second, not sure what is up with all this other stuff
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
-  password: {
+  admin: {
+    type: Sequelize.BOOLEAN
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  isOfAge: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  profilePicture: {
+    type: Sequelize.STRING,
+    //defaultValue: DEFAULT IMAGE
+  },
+  passwordHashed: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
@@ -63,8 +106,11 @@ const setSaltAndPassword = user => {
   }
 }
 
+
+
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+User.beforeValidate(checkAge)
