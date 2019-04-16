@@ -54,12 +54,12 @@ const Product = db.define('product', {
   },
 })
 
-Product.beforeValidate(product => {
-  if (product.inventory > 0) {
-    product.update({
-      status: 'In Stock'
-    })
-  }
-})
+// Product.beforeValidate(product => {
+//   if (product.inventory > 0) {
+//     product.update({
+//       status: 'In Stock'
+//     })
+//   }
+// })
 
 module.exports = Product
