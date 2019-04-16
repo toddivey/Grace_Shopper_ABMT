@@ -1,8 +1,11 @@
 const User = require('./user')
+const Product = require('./product')
 const Order = require('./order')
 const Cart = require('./cart')
 const Review = require('./review')
 const Categories = require('./categories')
+
+
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -19,6 +22,7 @@ const Categories = require('./categories')
  */
 module.exports = {
   User,
+  Product,
   Order,
   Cart,
   Review,
