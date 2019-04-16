@@ -14,16 +14,16 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "gracehopper-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test             # test the code
   - npm run build-client # make the bundle
 
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: gracehopper-abmt # see README
+  api_key:
+    secure: "qdLc9YyBEj17az+bofNrIHXGkmIY6bL6XvmwEofb/kg2ghD8mzYxpcBP0kn54RUFN3Z8Cz+v7WQP1GHUfhNiP7pMx86z3niPw1WJgEI46THhsr3Mlafp2MAERY9qRaWcJF8G16pbuitHZ7Lj69xRghlMi9r/FADSI8snPeoi3C5aZA3gisUruf2TLvVZsUwwQN2RlEsPX6qGM6EhsnWz/BacKQZ1mK5k+wfr47t+nbY/YPhwhd37hwNuzn6m9lsiWNHNLzoM5YAX7vXgkg1Hybxt0kyO+c/p2Yd7T4b11DMT9hfJPAf4J2NP6O37PsE7DsSqaAyNoB1uojkdKgKagJZZAi+qmYlXkAu+SizQV3cXxFFp8myufu7Dzr4yJJrA3NX7Aq9GLRjApKfQBd8EYaYvqo1souzdzVEHvko2S3Sr2dpe+L158/Ra9+6FDIoDgjHt8CkCC0aNg86HsnXACzWdxJ6qugsERJIKpathaFw01miU9dzzrUp3P6DPULxCHz6yvjzxW8S4JrBDO+d+BKYEttBtQimyPfaReP6AA6007HNiVmqIB9NTyzKP1wzRz9VHMc69C0Hdkw+zRqar52Oj6N19c7AwbCMLstK904sLQtxy+INg9tpES3WGf7zrPIbak6tF/aGUQq2zs8joL11T0B8A97hjXNLxAZjbqqk=" # see README
