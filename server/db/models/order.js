@@ -7,7 +7,7 @@ const Order = db.define('order', {
     allowNull: false,
     defaultValue: Sequelize.NOW
   },
-  shipping_status:{
+  shippingStatus:{
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'processing',
@@ -26,7 +26,6 @@ const Order = db.define('order', {
   total:{
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
 })
 

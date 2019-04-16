@@ -3,23 +3,26 @@ const db = require('../db')
 
 const Cart = db.define('cart', {
   status:{
-
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'open',
+    validate: {
+      isIn: [['open', 'completed']]
+    }
   },
   created_at:{
-
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   },
   closed_at:{
-
+    type: Sequelize.DATE,
   },
   total:{
-
-  },
-  shipping_cost:{
-
-  },
-  tax:{
-
-  },
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  }
 })
 
 module.exports = Cart
