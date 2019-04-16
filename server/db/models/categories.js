@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Categories = db.define('categories', {
   //names of styles of beer
-  name: {
+  style: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
