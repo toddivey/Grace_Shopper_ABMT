@@ -13,11 +13,11 @@ async function seed() {
   ])
 
   const orders = await Promise.all([
-    Order.create({created_at: '2019-01-29 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1234-60657', delivered: 'true', total:'10000'}),
-    Order.create({created_at: '2019-02-15 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1235-60657', delivered: 'true', total:'15000'}),
-    Order.create({created_at: '2019-03-20 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1236-60657', delivered: 'true', total:'12000'}),
-    Order.create({created_at: '2019-04-13 00:00:00.000 +00:00', shipping_status: 'shipped', tracking_num:'1Z-1237-60657', delivered: 'false', total:'8000'}),
-    Order.create({created_at: '2019-04-14 00:00:00.000 +00:00', shipping_status: 'processing', delivered: 'false', total:'9000'}),
+    Order.create({created_at: '2019-01-29 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1234-60657', total:'10000'}),
+    Order.create({created_at: '2019-02-15 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1235-60657', total:'15000'}),
+    Order.create({created_at: '2019-03-20 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1236-60657', total:'12000'}),
+    Order.create({created_at: '2019-04-13 00:00:00.000 +00:00', shipping_status: 'shipped', tracking_num:'1Z-1237-60657', total:'8000'}),
+    Order.create({created_at: '2019-04-14 00:00:00.000 +00:00', shipping_status: 'processing', total:'9000'}),
   ])
 
   const carts = await Promise.all([
