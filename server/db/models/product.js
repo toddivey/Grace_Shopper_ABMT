@@ -10,11 +10,11 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,
-      isDecimal: true,
+      isInt: true,
     }
   },
   status: {
@@ -29,14 +29,6 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT,
   },
-  rating: {
-    type: Sequelize.DECIMAL(10, 2),
-    validate: {
-      isDecimal: true,
-      min: 0.0,
-      max: 5.0
-    }
-  },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue: 'default-beer.jpg'
@@ -47,10 +39,10 @@ const Product = db.define('product', {
     defaultValue: 0
   },
   ABV: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     validate: {
-      isDecimal: true,
-      min: 0.0
+      isInt: true,
+      min: 0
     }
   },
   brewery: {
@@ -59,15 +51,15 @@ const Product = db.define('product', {
     validate: {
       notEmpty: true,
     }
-  }
+  },
 })
 
-Product.beforeUpdate = function () {
-  if (this.inventory > 0) {
-    return this.update({
+Product.beforeValidate(product => {
+  if (product.inventory > 0) {
+    product.update({
       status: 'In Stock'
     })
   }
-}
+})
 
 module.exports = Product
