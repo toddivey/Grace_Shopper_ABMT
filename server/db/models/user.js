@@ -42,6 +42,8 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       notEmpty: true,
+      //Is this correct??
+      is: true
     },
   },
   createdAt: {
@@ -113,4 +115,3 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
-User.beforeValidate(checkAge)
