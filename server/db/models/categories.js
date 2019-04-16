@@ -12,7 +12,7 @@ const Categories = db.define('categories', {
   },
   //brief description of that style
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
     validate: {
       notEmpty: true
