@@ -22,7 +22,8 @@ const Product = db.define('product', {
     allowNull: false,
     defaultValue: 'Out of Stock',
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isIn: [['Out of Stock', 'In Stock']]
     }
   },
   description: {
