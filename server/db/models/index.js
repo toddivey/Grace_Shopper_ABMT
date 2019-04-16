@@ -5,7 +5,13 @@ const Cart = require('./cart')
 const Review = require('./review')
 const Categories = require('./categories')
 
-
+Review.belongsTo(Product);
+Review.belongsTo(User);
+Cart.belongsTo(User);
+Order.belongsTo(User);
+Cart.hasMany(Product);
+Order.hasMany(Product)
+Product.hasOne(Categories)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
