@@ -72,6 +72,9 @@ const createApp = () => {
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
+    if (req.path === '/semantic/dist/semantic.min.js' || req.path === '/semantic/dist/semantic.min.css'){
+      next()
+    }
     if (path.extname(req.path).length) {
       const err = new Error('Not found')
       err.status = 404
