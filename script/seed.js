@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Review, Categories, Order, Cart, Product} = require('../server/db/models')
+const {User, Review, Categories, Order, Cart, Product, CartProducts, OrderProducts} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -89,6 +89,24 @@ const products = await Promise.all([
     Categories.create({style:'Fruit', description:'Most fruit beers are ales however, they typically do not carry an ale character. In order to allow for the fruit flavor to come through nicely, the malt’s flavor is not dominant and there is a low bitterness level to the beer.'}),
     Categories.create({style:'Wheat', description:'Light and easy to drink with very little aftertaste. Wheat provides a soft character to beer and is sometimes hazy or cloudy with a touch of spice notes.'}),
     Categories.create({style:'Pilsner', description:'Made with neutral and hard water. Tend to be golden in colour with a dry, crisp, and somewhat bitter flavour. Pilsner stands out from other lagers due to its more distinctive hop taste.'})
+  ])
+
+  const orderProducts = await Promise.all([
+    OrderProducts.create({quantity: 1, price: 10, orderId: 1, productId: 1 }),
+    OrderProducts.create({ quantity: 1, price: 10, orderId: 1, productId: 2 }),
+    OrderProducts.create({ quantity: 3, price: 10, orderId: 1, productId: 4 }),
+    OrderProducts.create({ quantity: 3, price: 10, orderId: 2, productId: 5 }),
+    OrderProducts.create({ quantity: 6, price: 10, orderId: 3, productId: 2 }),
+    OrderProducts.create({ quantity: 1, price: 10, orderId: 4, productId: 4 })
+  ])
+
+  const cartProducts = await Promise.all([
+    CartProducts.create({quantity: 1, cartId: 3, productId: 1 }),
+    CartProducts.create({ quantity: 1, cartId: 2, productId: 2 }),
+    CartProducts.create({ quantity: 3, cartId: 4, productId: 4 }),
+    CartProducts.create({ quantity: 3, cartId: 1, productId: 5 }),
+    CartProducts.create({ quantity: 6, cartId: 5, productId: 2 }),
+    CartProducts.create({ quantity: 1, cartId: 1, productId: 4 })
   ])
 
   console.log(`seeded ${categories.length} categories`)

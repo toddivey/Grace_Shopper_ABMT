@@ -7,7 +7,8 @@ const CartProducts = db.define('cartProducts', {
     allowNull: false,
     defaultValue: 1,
     validate: {
-      isInt: true
+      isInt: true,
+      min: 0
     }
   }
 })
