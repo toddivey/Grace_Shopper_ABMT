@@ -25,6 +25,7 @@ const removeUser = userId => ({ type: REMOVE_USER, userId: userId })
  * THUNK CREATORS
  */
 export const fetchUsers = () => async (dispatch) => {
+  console.log('Hi, hitting user thunk')
   try {
     const res = await axios.get('/api/users')
     dispatch(getUsers(res.data || defaultUsers))

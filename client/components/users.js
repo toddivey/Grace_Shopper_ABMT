@@ -1,16 +1,15 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteUser, fetchUsers} from '../store/users'
 
 class AllUsers extends React.Component {
-
   componentDidMount() {
     this.props.fetchInitialUsers()
   }
-  render () {
+  render() {
     const users = Array.from(this.props.users) || []
-    console.log("#########", this.props)
+    console.log('#########', this.props)
     const removeUser = this.props.deleteUser
 
     if (!users || users.length < 1) {
@@ -19,19 +18,23 @@ class AllUsers extends React.Component {
           <h1>No users</h1>
         </div>
       )
-    }
-    else {
+    } else {
       return (
         <div>
           <div>
-            {users.map (user => {
+            {users.map(user => {
               return (
                 <div key={user.id}>
-                  <Link to={`/users/${user.id}`} >
-                    <p> {user.name}</p>
-                    <img src={user.imageUrl} />
+                  <Link to={`/users/${user.id}`}>
+                    <p>
+                      {' '}
+                      {user.firstName} {user.lastName}
+                    </p>
+                    <p>{user.email} </p>
                   </Link>
-                  <button type='button' onClick={() => removeUser(user.id)}>DELETE</button>
+                  <button type="button" onClick={() => removeUser(user.id)}>
+                    DELETE
+                  </button>
                 </div>
               )
             })}
@@ -39,15 +42,15 @@ class AllUsers extends React.Component {
         </div>
       )
     }
-}
+  }
 }
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   fetchInitialUsers: () => dispatch(fetchUsers()),
   deleteUser: id => dispatch(deleteUser(id))
 })
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     users: state.users
   }
