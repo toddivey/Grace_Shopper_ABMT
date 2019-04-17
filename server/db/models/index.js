@@ -5,7 +5,10 @@ const Cart = require('./cart')
 const Review = require('./review')
 const Categories = require('./categories')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 039bc8690bf7d124e7a6582c5e5d06797f1a3b47
 Review.belongsTo(Product);
 Review.belongsTo(User);
 Cart.belongsTo(User);
@@ -17,6 +20,10 @@ User.hasMany(Order);
 User.hasMany(Cart);
 User.hasMany(Review);
 Product.hasMany(Review);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 039bc8690bf7d124e7a6582c5e5d06797f1a3b47
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
