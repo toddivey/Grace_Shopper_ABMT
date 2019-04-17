@@ -13,7 +13,7 @@ Cart.belongsTo(User);
 Order.belongsTo(User);
 Cart.hasMany(Product);
 Order.hasMany(Product);
-Product.hasOne(Categories);
+Product.belongsTo(Categories);
 User.hasMany(Order);
 User.hasMany(Cart);
 User.hasMany(Review);
