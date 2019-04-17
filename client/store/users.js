@@ -17,14 +17,13 @@ const defaultUsers = {}
 /**
  * ACTION CREATORS
  */
-const getUsers = (users) => ({ type: GET_USERS, users })
-const removeUser = userId => ({ type: REMOVE_USER, userId: userId })
-
+const getUsers = users => ({type: GET_USERS, users})
+const removeUser = userId => ({type: REMOVE_USER, userId: userId})
 
 /**
  * THUNK CREATORS
  */
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = () => async dispatch => {
   console.log('Hi, hitting user thunk')
   try {
     const res = await axios.get('/api/users')
@@ -34,25 +33,22 @@ export const fetchUsers = () => async (dispatch) => {
   }
 }
 
-export function deleteUser (userId) {
-  return (
-    async (dispatch) => {
-      try {
-        //NOTE: do we need this await?
-        await dispatch(removeUser(userId))
-        await axios.delete(`/api/users/${userId}`)
-      } catch (err) {
-        console.error(err)
-      }
+export function deleteUser(userId) {
+  return async dispatch => {
+    try {
+      //NOTE: do we need this await?
+      await dispatch(removeUser(userId))
+      await axios.delete(`/api/users/${userId}`)
+    } catch (err) {
+      console.error(err)
     }
-  )
+  }
 }
-
 
 /**
  * REDUCER
  */
-export default function (state = defaultUsers, action) {
+export default function(state = defaultUsers, action) {
   switch (action.type) {
     case GET_USERS:
       return action.users

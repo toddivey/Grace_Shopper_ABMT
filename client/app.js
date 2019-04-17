@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Navbar} from './components'
-// import AllProducts from './components/products'
+import AllProducts from './components/products'
 import AllUsers from './components/users'
 import Routes from './routes'
 
@@ -9,7 +9,8 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <AllUsers />
+      {/* <AllProducts />
+      <AllUsers /> */}
       <Routes />
     </div>
   )
