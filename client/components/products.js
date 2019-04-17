@@ -1,41 +1,49 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteProduct} from '../store/products'
+import {deleteProduct, fetchProducts} from '../store/products'
 
-export const AllProducts = (props) => {
-  const products = props.products
-  const removeProduct = props.deleteProduct
+class AllProducts extends React.Component {
 
-  if (!products || products.length === 0) {
-    return (
-      <div>
-        <h1>No Products</h1>
-      </div>
-    )
+  componentDidMount() {
+    this.props.fetchInitialProducts()
   }
-  else {
-    return (
-      <div>
+  render () {
+    const products = Array.from(this.props.products) || []
+    console.log("#########", this.props)
+    const removeProduct = this.props.deleteProduct
+
+    if (!products || products.length < 1) {
+      return (
         <div>
-          {products.map (product => {
-            return (
-              <div key={product.id}>
-                <Link to={`/products/${product.id}`} >
-                  <p> {product.name}</p>
-                  <img src={product.imageUrl} />
-                </Link>
-                <button type='button' onClick={() => removeProduct(product.id)}>DELETE</button>
-              </div>
-            )
-          })}
+          <h1>No Products</h1>
         </div>
-      </div>
-    )
-  }
+      )
+    }
+    else {
+      return (
+        <div>
+          <div>
+            {products.map (product => {
+              return (
+                <div key={product.id}>
+                  <Link to={`/products/${product.id}`} >
+                    <p> {product.name}</p>
+                    <img src={product.imageUrl} />
+                  </Link>
+                  <button type='button' onClick={() => removeProduct(product.id)}>DELETE</button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )
+    }
+}
 }
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch) => ({
+  fetchInitialProducts: () => dispatch(fetchProducts()),
   deleteProduct: id => dispatch(deleteProduct(id))
 })
 
