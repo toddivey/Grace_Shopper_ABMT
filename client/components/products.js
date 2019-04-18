@@ -31,13 +31,6 @@ class AllProducts extends React.Component {
                   <Card>
                 <div key={product.id}>
                     <Card.Content>
-<<<<<<< HEAD
-                    <Image src={product.imageUrl} size = 'small' bordered />
-                  <Link to={`/products/${product.id}`} >
-                    <Card.Header> {product.name}</Card.Header>
-                  </Link>
-                  <Button type='button' onClick={() => removeProduct(product.id)}>DELETE</Button>
-=======
                     <Image src={product.imageUrl} size = 'small' />
                   <Link to={`/products/${product.id}`}>
                     <Card.Header> {product.name}</Card.Header>
@@ -51,7 +44,6 @@ class AllProducts extends React.Component {
                       Alcohol Content: {product.ABV}%
                       Status: {product.status}
                     </p>
->>>>>>> 664db17b167ab5c3b34d21ebd343edc32bf0050a
                     </Card.Content>
                     <Button className='mini ui red inverted button' onClick={() => removeProduct(product.id)}>DELETE</Button>
                 </div>
