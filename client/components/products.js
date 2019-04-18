@@ -23,21 +23,17 @@ class AllProducts extends React.Component {
       return (
         <div>
           <div>
-            <Grid>
-              <Grid.Row columns={4}>
+            <Grid relaxed="very" divided="vertically" columns={4}>
+              <Grid.Row>
                 {products.map(product => {
                   return (
                     <Grid.Column key={product.id}>
-                      <Card>
+                      <Card centered>
+                        <Image src={product.imageUrl} />
                         <div key={product.id}>
-                          <Card.Content>
-                            <Image
-                              src={product.imageUrl}
-                              size="small"
-                              bordered
-                            />
+                          <Card.Content textAlign="center">
                             {/* <Link to={`/products/${product.id}`} > */}
-                            <Card.Header> {product.name}</Card.Header>
+                            <Card.Header as="h3"> {product.name}</Card.Header>
                             {/* </Link> */}
                             <Button
                               primary

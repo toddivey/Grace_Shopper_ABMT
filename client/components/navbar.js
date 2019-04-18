@@ -11,10 +11,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <Icon name="beer" />
       <Header.Content>grace HOPper</Header.Content>
     </Header>
-    <Menu>
+    <Menu secondary size="medium">
       <nav>
         {isLoggedIn ? (
-          <Container>
+          <Container text>
             <Menu.Item as="a">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
@@ -24,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </Menu.Item>
           </Container>
         ) : (
-          <Container>
+          <Container text>
             {/* The navbar will show these links before you log in */}
             <Menu.Item as="a">
               <Link to="/login">Login</Link>
