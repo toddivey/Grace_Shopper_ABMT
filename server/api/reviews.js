@@ -55,7 +55,7 @@ router.put('/:reviewId', async (req, res, next) => {
 
 router.delete('/:reviewId', async (req, res, next) => {
   try {
-    await Product.destroy({
+    await Review.destroy({
       where: { id: Number(req.params.reviewId) }
     })
     res.send('Review Deleted Successfully!')
