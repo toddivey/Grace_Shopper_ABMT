@@ -10,6 +10,14 @@ const CartProducts = db.define('cartProducts', {
       isInt: true,
       min: 0
     }
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      isInt: true,
+      min: 0
+    }
   }
 })
 

@@ -12,7 +12,6 @@ class SingleProduct extends React.Component {
   }
   render () {
     const product = this.props.product[0]
-    console.log("#########", product)
     const removeProduct = this.props.deleteProduct
 
     if (!product || product.length < 1) {
