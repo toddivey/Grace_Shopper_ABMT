@@ -1,20 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteProduct, fetchProducts} from '../store/products'
+import {deleteProduct, fetchAProduct} from '../store/singleProduct'
 import {Button, Image, Grid, Card} from 'semantic-ui-react';
 
-class AllProducts extends React.Component {
+class SingleProduct extends React.Component {
 
   componentDidMount() {
-    this.props.fetchInitialProducts()
+    this.props.fetchInitialProduct(this.props.match.params.productId)
   }
   render () {
-    const products = Array.from(this.props.products) || []
+    const product = this.props.product[0]
     console.log("#########", this.props)
     const removeProduct = this.props.deleteProduct
 
-    if (!products || products.length < 1) {
+    if (!product || product.length < 1) {
       return (
         <div>
           <h1>No Products</h1>
@@ -26,25 +26,16 @@ class AllProducts extends React.Component {
         <div>
           <div>
             <Grid>
-              <Grid.Row columns = {4}>
-            {products.map (product => {
-              return (
-                <Grid.Column key = {product.id}>
-                  <Card>
+                <Card>
                 <div key={product.id}>
                     <Card.Content>
                     <Image src={product.imageUrl} size = 'small' bordered />
-                  {/* <Link to={`/products/${product.id}`} > */}
                     <Card.Header> {product.name}</Card.Header>
                   {/* </Link> */}
                   <Button type='button' onClick={() => removeProduct(product.id)}>DELETE</Button>
                     </Card.Content>
                 </div>
                 </Card>
-                </Grid.Column>
-              )
-            })}
-            </Grid.Row>
             </Grid>
           </div>
         </div>
@@ -54,14 +45,14 @@ class AllProducts extends React.Component {
 }
 
 const mapDispatch = (dispatch) => ({
-  fetchInitialProducts: () => dispatch(fetchProducts()),
-  deleteProduct: id => dispatch(deleteProduct(id))
+  fetchInitialProduct: (id) => dispatch(fetchAProduct(id)),
+  deleteProduct: (id) => dispatch(deleteProduct(id))
 })
 
 const mapState = (state) => {
   return {
-    products: state.products
+    product: state.product
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(SingleProduct)
