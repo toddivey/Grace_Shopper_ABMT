@@ -36,7 +36,8 @@ class AllProducts extends React.Component {
                             <Card.Header as="h3"> {product.name}</Card.Header>
                             {/* </Link> */}
                             <Button
-                              primary
+                              negative="true"
+                              size="small"
                               onClick={() => removeProduct(product.id)}
                             >
                               DELETE
