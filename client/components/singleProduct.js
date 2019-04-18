@@ -11,7 +11,7 @@ class SingleProduct extends React.Component {
     this.props.fetchInitialProduct(this.props.match.params.productId)
   }
   render () {
-    const product = this.props.product[0]
+    const product = this.props.product
     console.log("#########", product)
     const removeProduct = this.props.deleteProduct
 
