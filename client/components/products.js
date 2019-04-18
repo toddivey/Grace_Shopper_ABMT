@@ -34,9 +34,9 @@ class AllProducts extends React.Component {
                 <div key={product.id}>
                     <Card.Content>
                     <Image src={product.imageUrl} size = 'small' bordered />
-                  {/* <Link to={`/products/${product.id}`} > */}
+                  <Link to={`/products/${product.id}`} >
                     <Card.Header> {product.name}</Card.Header>
-                  {/* </Link> */}
+                  </Link>
                   <Button type='button' onClick={() => removeProduct(product.id)}>DELETE</Button>
                     </Card.Content>
                 </div>
