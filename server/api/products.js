@@ -7,7 +7,7 @@ module.exports = router
 //will need to do eager loading once assosciations are set
 router.get('/:productId', async (req, res, next) => {
   try {
-    const data = await Product.findAll(
+    const data = await Product.findOne(
       {where: {id: Number(req.params.productId)},
       include: [Review, Categories]
     })
