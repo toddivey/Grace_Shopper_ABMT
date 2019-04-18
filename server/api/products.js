@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, Categories, Review} = require('../db/models')
+const isAdmin = require('../middleware/isAdmin');
 module.exports = router
 
 
@@ -57,7 +58,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {id: req.params.productId}
