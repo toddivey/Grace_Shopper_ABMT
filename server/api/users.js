@@ -1,12 +1,13 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Review, Order} = require('../db/models')
 module.exports = router
 
 //will need to do eager loading once assosciations are set
 router.get('/:userId', async (req, res, next) => {
   try {
     const data = await User.find(
-      {where: {id: Number(req.params.userId)}
+      {where: {id: Number(req.params.userId)},
+      include: [Review, Order]
     }
     )
     res.send(data)
