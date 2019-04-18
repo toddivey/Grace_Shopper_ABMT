@@ -7,7 +7,7 @@ import {Button, Image, Grid, Card} from 'semantic-ui-react';
 class SingleUser extends React.Component {
 
   componentDidMount() {
-    this.props.fetchInitialUsers(this.props.match.params.userId)
+    this.props.fetchInitialUser(this.props.match.params.userId)
   }
   render () {
     const user = this.props.user[0]
@@ -47,7 +47,7 @@ class SingleUser extends React.Component {
 }
 
 const mapDispatch = (dispatch) => ({
-  fetchInitialUsers: (id) => dispatch(fetchSingleUser(id)),
+  fetchInitialUser: (id) => dispatch(fetchSingleUser(id)),
   deleteUser: (id) => dispatch(deleteUser(id))
 })
 
