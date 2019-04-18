@@ -5,7 +5,7 @@ module.exports = router
 //will need to do eager loading once assosciations are set
 router.get('/:userId', async (req, res, next) => {
   try {
-    const data = await User.findAll(
+    const data = await User.findOne(
       {where: {id: Number(req.params.userId)},
       include: [Review, Order]
     }

@@ -10,7 +10,7 @@ class SingleUser extends React.Component {
     this.props.fetchInitialUser(this.props.match.params.userId)
   }
   render () {
-    const user = this.props.user[0]
+    const user = this.props.user
     console.log("#########", this.props)
     const removeUser = this.props.deleteUser
 
