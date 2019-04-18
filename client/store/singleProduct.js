@@ -24,7 +24,7 @@ const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId
 /**
  * THUNK CREATORS
  */
-export const fetchAProduct = (id) => async (dispatch) => {
+export const fetchSingleProduct = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/products/${id}`)
     dispatch(singleProduct(res.data || defaultSingleProduct))
