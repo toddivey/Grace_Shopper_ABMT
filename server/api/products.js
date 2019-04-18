@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.status(201)
@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId',isAdmin, async (req, res, next) => {
   try {
     await Product.update(
       { name: req.body.name,

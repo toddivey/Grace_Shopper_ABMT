@@ -1,10 +1,12 @@
+
+
 module.exports = (req, res, next) => {
-  console.log('HIT.USER!!!', req.session)
-  // if(req.user && req.user.admin) {
+  console.log('ADMIN MIDDLEWARE:', req.user.dataValues.admin)
+  if(req.user && (req.user.dataValues.admin === true)) {
      next()
-  // } else {
-  //   res.status(401).alert('Not Authorized!') //updated to send whatever message you want
-  // }
+  } else {
+    res.redirect('http://google.com')//updated to send whatever message you want
+  }
 }
 
 
