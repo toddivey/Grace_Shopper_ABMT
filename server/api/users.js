@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Review, Order} = require('../db/models')
+const isAdmin = require('../middleware/admin')
 module.exports = router
 
 //will need to do eager loading once assosciations are set
