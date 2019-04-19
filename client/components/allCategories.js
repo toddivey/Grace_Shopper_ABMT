@@ -11,6 +11,7 @@ class AllCategories extends React.Component {
   render() {
     const categories = Array.from(this.props.categories) || []
     console.log('#########', this.props)
+    console.log(categories)
 
     if (!categories || categories.length < 1) {
       return (
@@ -30,7 +31,7 @@ class AllCategories extends React.Component {
                       <Card centered>
                         <Card.Content textAlign="center">
                           <Link to={`/categories/${category.id}`}>
-                            <Card.Header as="h3"> {category.name}</Card.Header>
+                            <Card.Header as="h3"> {category.style}</Card.Header>
                           </Link>
                         </Card.Content>
                       </Card>
@@ -52,7 +53,7 @@ const mapDispatch = dispatch => ({
 
 const mapState = state => {
   return {
-    categories: state.categories
+    categories: state.categories.categories
   }
 }
 
