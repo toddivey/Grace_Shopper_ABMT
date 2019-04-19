@@ -109,14 +109,25 @@ let n = 500
     Categories.create({style:'Pilsner', description:'Made with neutral and hard water. Tend to be golden in colour with a dry, crisp, and somewhat bitter flavour. Pilsner stands out from other lagers due to its more distinctive hop taste.'})
   ])
 
-  const productCategories = await Promise.all([
-    ProductCategories.create({ categoryId: 1, productId: 1 }),
-    ProductCategories.create({ categoryId: 1, productId: 2 }),
-    ProductCategories.create({ categoryId: 1, productId: 4 }),
-    ProductCategories.create({ categoryId: 2, productId: 5 }),
-    ProductCategories.create({ categoryId: 3, productId: 2 }),
-    ProductCategories.create({ categoryId: 4, productId: 4 })
-  ])
+  // const productCategories = await Promise.all([
+  //   ProductCategories.create({ categoryId: 1, productId: 1 }),
+  //   ProductCategories.create({ categoryId: 1, productId: 2 }),
+  //   ProductCategories.create({ categoryId: 1, productId: 4 }),
+  //   ProductCategories.create({ categoryId: 2, productId: 5 }),
+  //   ProductCategories.create({ categoryId: 3, productId: 2 }),
+  //   ProductCategories.create({ categoryId: 4, productId: 4 })
+  // ])
+
+  let pc = 500
+  let prodId = 1
+  while (pc > 0) {
+   await ProductCategories.create({
+     categoryId: faker.random.number({min: 1, max: 10}),
+     productId: prodId
+   })
+   pc--;
+   prodId++
+  }
 
   const cartProducts = await Promise.all([
     CartProducts.create({quantity: 1, price: 10, cartId: 3, productId: 1 }),
