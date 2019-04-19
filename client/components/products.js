@@ -11,8 +11,8 @@ class AllProducts extends React.Component {
   render() {
     const products = Array.from(this.props.products) || []
     console.log('#########', this.props)
-    const removeProduct = this.props.deleteProduct
 
+    const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
       return (
         <div>
@@ -49,6 +49,35 @@ class AllProducts extends React.Component {
                   )
                 })}
               </Grid.Row>
+            <Grid>
+              <Grid.Row columns = {4}>
+            {products.map (product => {
+              return (
+                <Grid.Column key = {product.id}>
+                  <Card>
+                <div key={product.id}>
+                    <Card.Content>
+                    <Image src={product.imageUrl} size = 'small' />
+                  <Link to={`/products/${product.id}`}>
+                    <Card.Header> {product.name}</Card.Header>
+                  </Link>
+                    <Card.Meta>Brewery: {product.brewery} </Card.Meta>
+                    <Card.Description>Price: ${product.price}</Card.Description>
+
+                    </Card.Content>
+                    <Card.Content>
+                    <p>
+                      Alcohol Content: {product.ABV}%
+                      Status: {product.status}
+                    </p>
+                    </Card.Content>
+                    <Button className='mini ui red inverted button' onClick={() => removeProduct(product.id)}>DELETE</Button>
+                </div>
+                </Card>
+                </Grid.Column>
+              )
+            })}
+            </Grid.Row>
             </Grid>
           </div>
         </div>
