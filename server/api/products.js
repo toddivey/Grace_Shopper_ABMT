@@ -7,7 +7,7 @@ router.get('/page/:pageId', async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
     const offset = (Number(req.params.pageId) - 1) * 8
-    const limit = offset + 8
+    const limit = 8
 
     const products = await Product.findAll({
       limit,

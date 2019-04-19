@@ -6,7 +6,7 @@ import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
 class AllProducts extends React.Component {
   componentDidMount() {
-    this.props.fetchInitialProducts()
+    this.props.fetchInitialProducts(this.props.match.params.pageId)
   }
   render() {
     const products = Array.from(this.props.products) || []
@@ -59,7 +59,7 @@ class AllProducts extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  fetchInitialProducts: () => dispatch(fetchProducts()),
+  fetchInitialProducts: (pageId) => dispatch(fetchProducts(pageId)),
   deleteProduct: id => dispatch(deleteProduct(id))
 })
 
