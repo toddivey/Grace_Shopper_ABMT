@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const {User, Review, Order} = require('../db/models')
+const isAdmin = require('../middleware/admin')
 module.exports = router
 
 //will need to do eager loading once assosciations are set
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId',isAdmin, async (req, res, next) => {
   try {
     const data = await User.findOne(
       {where: {id: Number(req.params.userId)},
@@ -17,7 +18,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
     const users = await User.findAll()
@@ -27,7 +28,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/',isAdmin, async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     res.status(201)
@@ -37,7 +38,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId',isAdmin, async (req, res, next) => {
   try {
     await User.update(
       { email: req.body.email,
@@ -54,7 +55,7 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/:userId',isAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {id: req.params.userId}

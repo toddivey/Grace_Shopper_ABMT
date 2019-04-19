@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const {Product, Categories, Review} = require('../db/models')
+const isAdmin = require('../middleware/admin')
 module.exports = router
 
 
 //will need to do eager loading once assosciations are set
 router.get('/:productId', async (req, res, next) => {
   try {
-    const data = await Product.findAll(
+    const data = await Product.findOne(
       {where: {id: Number(req.params.productId)},
       include: [Review, Categories]
     })
@@ -27,7 +28,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.status(201)
@@ -37,7 +38,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId',isAdmin, async (req, res, next) => {
   try {
     await Product.update(
       { name: req.body.name,
@@ -57,7 +58,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {id: req.params.productId}
