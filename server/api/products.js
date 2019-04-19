@@ -17,16 +17,36 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-
-router.get('/', async (req, res, next) => {
+router.get('/page/:pageId', async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
-    const products = await Product.findAll()
+    const offset = Number(req.params.pageId) * 8
+    const limit = offset + 8
+
+    const products = await Product.findAll(limit, offset)
     res.json(products)
   } catch (err) {
     next(err)
   }
 })
+
+router.get('/', async (req, res, next) => {
+  try {
+    //will need to do eager loading once assosciations are set
+    const offset = 1 * 8
+    const limit = offset + 8
+
+    const products = await Product.findAll(
+      limit,
+      offset
+    )
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
+
+
 
 router.post('/', isAdmin, async (req, res, next) => {
   try {
