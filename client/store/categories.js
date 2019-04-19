@@ -13,7 +13,7 @@ const GET_SINGLE_CATEGORY = 'GET_SINGLE_CATEGORY'
 /**
  * INITIAL STATE
  */
-const defaultCategories = {
+export const defaultCategories = {
   categories: [],
   singleCategory: {}
 }
@@ -22,9 +22,9 @@ const defaultCategories = {
  * ACTION CREATORS
  */
 const getCategories = categories => ({type: GET_CATEGORIES, categories})
-const getSingleCategory = category => ({
+const getSingleCategory = categoryId => ({
   type: GET_SINGLE_CATEGORY,
-  category
+  categoryId
 })
 // const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId })
 
@@ -76,7 +76,7 @@ export default function(state = defaultCategories, action) {
     case GET_SINGLE_CATEGORY:
       return {
         ...state,
-        categories: [...state.categories, action.category]
+        categories: [...state.categories, action.categoryId]
       }
     // case REMOVE_PRODUCT:
     //   return state.filter(product => product.id !== action.productId)
