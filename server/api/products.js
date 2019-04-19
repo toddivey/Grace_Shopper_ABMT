@@ -21,7 +21,9 @@ router.get('/:productId', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
-    const products = await Product.findAll()
+    const products = await Product.findAll(
+      {include: [Categories]}
+    )
     res.json(products)
   } catch (err) {
     next(err)
