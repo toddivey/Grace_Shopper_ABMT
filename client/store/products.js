@@ -12,19 +12,21 @@ const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 /**
  * INITIAL STATE
  */
-const defaultProducts = {}
+const defaultProducts = []
 
 /**
  * ACTION CREATORS
  */
-const getProducts = (products) => ({ type: GET_PRODUCTS, products })
-const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId })
-
+const getProducts = products => ({type: GET_PRODUCTS, products})
+const removeProduct = productId => ({
+  type: REMOVE_PRODUCT,
+  productId: productId
+})
 
 /**
  * THUNK CREATORS
  */
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = () => async dispatch => {
   try {
     const res = await axios.get('/api/products')
     dispatch(getProducts(res.data || defaultProducts))
@@ -33,25 +35,22 @@ export const fetchProducts = () => async (dispatch) => {
   }
 }
 
-export function deleteProduct (productId) {
-  return (
-    async (dispatch) => {
-      try {
-        //NOTE: do we need this await?
-        await dispatch(removeProduct(productId))
-        await axios.delete(`/api/products/${productId}`)
-      } catch (err) {
-        console.error(err)
-      }
+export function deleteProduct(productId) {
+  return async dispatch => {
+    try {
+      //NOTE: do we need this await?
+      await dispatch(removeProduct(productId))
+      await axios.delete(`/api/products/${productId}`)
+    } catch (err) {
+      console.error(err)
     }
-  )
+  }
 }
-
 
 /**
  * REDUCER
  */
-export default function (state = defaultProducts, action) {
+export default function(state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products

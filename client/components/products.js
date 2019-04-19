@@ -32,11 +32,10 @@ class AllProducts extends React.Component {
                         <Image src={product.imageUrl} />
                         <div key={product.id}>
                           <Card.Content textAlign="center">
-                            {/* <Link to={`/products/${product.id}`} > */}
-                            <Card.Header as="h3"> {product.name}</Card.Header>
-                            {/* </Link> */}
+                            <Link to={`/products/${product.id}`}>
+                              <Card.Header as="h3"> {product.name}</Card.Header>
+                            </Link>
                             <Button
-                              negative="true"
                               size="small"
                               onClick={() => removeProduct(product.id)}
                             >
