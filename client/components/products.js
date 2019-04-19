@@ -29,20 +29,32 @@ class AllProducts extends React.Component {
                   return (
                     <Grid.Column key={product.id}>
                       <Card centered>
-                        <Image src={product.imageUrl} />
+                        {/* <Image src={product.imageUrl} /> */}
                         <div key={product.id}>
-                          <Card.Content textAlign="center">
-                            <Link to={`/products/${product.id}`} >
-                            <Card.Header as="h3"> {product.name}</Card.Header>
-                            </Link>
-                            <Button
-                              negative="true"
+                          <Card.Content centered>
+                            <Image
+                              src={product.imageUrl}
                               size="small"
-                              onClick={() => removeProduct(product.id)}
-                            >
-                              DELETE
-                            </Button>
+                              centered
+                            />
+                            <Link to={`/products/${product.id}`}>
+                              <Card.Header> {product.name}</Card.Header>
+                            </Link>
+                            <Card.Meta>Brewery: {product.brewery} </Card.Meta>
+                            <Card.Description>
+                              Price: ${product.price}
+                            </Card.Description>
                           </Card.Content>
+                          <Card.Content>
+                            Alcohol Content: {product.ABV}%
+                          </Card.Content>
+                          <Card.Content>Status: {product.status}</Card.Content>
+                          <Button
+                            className="mini ui red inverted button"
+                            onClick={() => removeProduct(product.id)}
+                          >
+                            DELETE
+                          </Button>
                         </div>
                       </Card>
                     </Grid.Column>
