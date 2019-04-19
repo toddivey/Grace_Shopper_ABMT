@@ -17,14 +17,13 @@ const defaultCategories = {}
 /**
  * ACTION CREATORS
  */
-const getCategories = (categories) => ({ type: GET_CATEGORIES, categories })
+const getCategories = categories => ({type: GET_CATEGORIES, categories})
 // const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId })
-
 
 /**
  * THUNK CREATORS
  */
-export const fetchCategories = () => async (dispatch) => {
+export const fetchCategories = () => async dispatch => {
   try {
     const res = await axios.get('/api/categories')
     dispatch(getCategories(res.data || defaultCategories))
@@ -47,14 +46,13 @@ export const fetchCategories = () => async (dispatch) => {
 //   )
 // }
 
-
 /**
  * REDUCER
  */
-export default function (state = defaultCategories, action) {
+export default function(state = defaultCategories, action) {
   switch (action.type) {
-    case GET_Categories:
-      return action.Categories
+    case GET_CATEGORIES:
+      return action.categories
     // case REMOVE_PRODUCT:
     //   return state.filter(product => product.id !== action.productId)
     default:
