@@ -10,6 +10,7 @@ import SingleProduct from './components/singleProduct'
 import {LandingPage} from './components/landing-page'
 import SingleUser from './components/singleUser'
 import AllCategories from './components/allCategories'
+import SingleCategory from './components/singleCategory'
 /**
  * COMPONENT
  */
@@ -31,7 +32,9 @@ class Routes extends Component {
         <Route path="/users/:userId" component={SingleUser} />
         <Route path="/users" component={AllUsers} />
         <Route path="/products" component={AllProducts} />
+        <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={AllCategories} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
