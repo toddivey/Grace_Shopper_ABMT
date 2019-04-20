@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {deleteProduct, fetchProducts} from '../store/products'
 import {Button, Image, Grid, Card} from 'semantic-ui-react';
 
+
 class AllProducts extends React.Component {
 
   componentDidMount() {
@@ -45,6 +46,7 @@ class AllProducts extends React.Component {
                       Status: {product.status}
                     </p>
                     </Card.Content>
+
                     <Button className='mini ui red inverted button' onClick={() => removeProduct(product.id)}>DELETE</Button>
                 </div>
                 </Card>
