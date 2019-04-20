@@ -12,11 +12,10 @@ class SingleProduct extends React.Component {
     this.props.fetchInitialProduct(this.props.match.params.productId)
   }
   render () {
-    const product = this.props.product[0]
-    console.log("#########", product)
+    const product = this.props.product
     const removeProduct = this.props.deleteProduct
 
-    if (!product || product.length < 1) {
+    if (!product.id) {
       return (
         <div>
           <h1>No Products</h1>
@@ -55,11 +54,10 @@ class SingleProduct extends React.Component {
                 </Grid.Column>
               </Grid>
               <Grid centered columns={1}>
-                <Header size="medium">Reviews: </Header>
-                <List>
-                  <FilteredReviews />
-                </List>
               </Grid>
+              <div>
+                <FilteredReviews reviews={product.reviews} />
+              </div>
             </div>
           </div>
         </div>

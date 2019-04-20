@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteUser, fetchSingleUser} from '../store/singleUser'
 import {Button, Image, Grid, Card} from 'semantic-ui-react';
+import FilteredReviews from './filteredReviews'
 
 class SingleUser extends React.Component {
 
@@ -11,10 +12,10 @@ class SingleUser extends React.Component {
   }
   render () {
     const user = this.props.user
-    console.log("#########", this.props)
     const removeUser = this.props.deleteUser
 
-    if (!user|| user.length < 1) {
+
+    if (!user.id) {
       return (
         <div>
           <h1>No Such User Exists</h1>
@@ -22,26 +23,33 @@ class SingleUser extends React.Component {
       )
     }
     else {
-      return (
-        <div>
+      console.log('PROPS'.this.props)
+      return (<div>
           <div>
             <Grid>
-                <Card>
+              <Card>
                 <div key={user.id}>
-                <Card.Content>
-                      <Image src={user.profilePicture} size = 'small' bordered />
+                  <Card.Content>
+                    <Image src={user.profilePicture} size="small" bordered />
                     {/* <Link to={`/userss/${user.id}`} > */}
-                      <Card.Header> {user.firstName} {user.lastName}</Card.Header>
-                      <Card.Description>{user.firstName}'s email is {user.email}</Card.Description>
+                    <Card.Header>
+                      {' '}
+                      {user.firstName} {user.lastName}
+                    </Card.Header>
+                    <Card.Description>
+                      {user.firstName}'s email is {user.email}
+                    </Card.Description>
                     {/* </Link> */}
-                    <Button type='button' onClick={() => removeUser(user.id)}>DELETE</Button>
-                    </Card.Content>
+                    <Button type="button" onClick={() => removeUser(user.id)}>
+                      DELETE
+                    </Button>
+                  </Card.Content>
                 </div>
-                </Card>
+              </Card>
             </Grid>
+            {/* <FilteredReviews reviews={user.reviews} /> */}
           </div>
-        </div>
-      )
+        </div>)
     }
 }
 }
