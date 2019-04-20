@@ -3,6 +3,22 @@ const {Product, Categories, Review} = require('../db/models')
 const isAdmin = require('../middleware/admin')
 module.exports = router
 
+router.get('/page/:pageId', async (req, res, next) => {
+  try {
+    //will need to do eager loading once assosciations are set
+    const offset = (Number(req.params.pageId) - 1) * 8
+    const limit = 8
+
+    const products = await Product.findAll({
+      limit,
+      offset,
+      order: [['id', 'ASC']]
+    })
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //will need to do eager loading once assosciations are set
 router.get('/:productId', async (req, res, next) => {
@@ -18,15 +34,23 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 
+
 router.get('/', async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
-    const products = await Product.findAll()
+    const offset = 0
+    const limit = offset + 8
+
+    const products = await Product.findAll({limit,
+      order: [['id', 'ASC']]
+    })
     res.json(products)
   } catch (err) {
     next(err)
   }
 })
+
+
 
 router.post('/', isAdmin, async (req, res, next) => {
   try {
