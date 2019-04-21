@@ -28,6 +28,19 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
+router.put('/:userId/cart', async (req, res, next) => {
+  try {
+    console.log("REQ BODY", req.body)
+    const data = await Cart.update({
+      where: {status: 'open', userId: Number(req.params.userId)},
+    },
+    {products: [this.products, req.body]})
+    res.send("Cart Updated!")
+  } catch (err) {
+    next(err)
+  }
+})
+
 //will need to do eager loading once assosciations are set
 router.get('/:userId',isAdmin, async (req, res, next) => {
   try {

@@ -8,6 +8,8 @@ import history from '../history'
  */
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const GET_CART = 'GET_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
 
 /**
  * INITIAL STATE
@@ -17,13 +19,35 @@ const defaultSingleProduct = {}
 /**
  * ACTION CREATORS
  */
-const singleProduct = (product) => ({ type: SINGLE_PRODUCT, product})
-const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId })
-
+const singleProduct = (product) => ({ type: SINGLE_PRODUCT, product: product})
+const removeProduct = (productId) => ({ type: REMOVE_PRODUCT, productId: productId })
+const getCart = (cart) => ({ type: GET_CART, cart: cart})
+const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
 
 /**
  * THUNK CREATORS
  */
+export const productToCart = (productId) => async (dispatch) => {
+  try {
+    await dispatch(addToCart(productId))
+    const user = await axios.get('/auth/me')
+    await axios.put(`/api/users/${user.data.id}/cart`, productId)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchActiveCart = () => async (dispatch) => {
+  try {
+    const user = await axios.get('/auth/me')
+    const cart = await axios.get(`/api/users/${user.data.id}/cart`)
+    console.log("CART", cart)
+    dispatch(getCart(cart.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const fetchSingleProduct = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/products/${id}`)
@@ -54,9 +78,13 @@ export function deleteProduct (productId) {
 export default function (state = defaultSingleProduct, action) {
   switch (action.type) {
     case SINGLE_PRODUCT:
-      return action.product
+      return {...state, product: action.product}
+    case GET_CART:
+      return {...state, cart: action.cart}
     case REMOVE_PRODUCT:
       return state.filter(product => product.id !== action.productId)
+    case ADD_TO_CART:
+      return {...state, cart: {...state.cart, products: action.products}}
     default:
       return state
   }
