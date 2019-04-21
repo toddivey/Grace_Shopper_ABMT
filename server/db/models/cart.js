@@ -10,11 +10,6 @@ const Cart = db.define('cart', {
       isIn: [['open', 'completed']]
     }
   },
-  created_at:{
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW
-  },
   closed_at:{
     type: Sequelize.DATE,
   },

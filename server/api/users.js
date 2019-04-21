@@ -1,7 +1,32 @@
 const router = require('express').Router()
-const {User, Review, Order} = require('../db/models')
+const {User, Review, Order, Cart, Product} = require('../db/models')
 const isAdmin = require('../middleware/admin')
 module.exports = router
+
+
+router.get('/:userId/cart/:cartId', async (req, res, next) => {
+  try {
+    const data = await Cart.findOne({
+      where: {id: Number(req.params.cartId), userId: Number(req.params.userId)},
+      include: [User, Product]
+    })
+    res.send(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/cart', async (req, res, next) => {
+  try {
+    const data = await Cart.findOne({
+      where: {status: 'open', userId: Number(req.params.userId)},
+      include: [User, Product]
+    })
+    res.send(data)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //will need to do eager loading once assosciations are set
 router.get('/:userId',isAdmin, async (req, res, next) => {
