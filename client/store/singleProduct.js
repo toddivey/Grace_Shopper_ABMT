@@ -71,8 +71,7 @@ export function deleteProduct (productId) {
   return (
     async (dispatch) => {
       try {
-        //NOTE: do we need this await?
-        await dispatch(removeProduct(productId))
+        dispatch(removeProduct(productId))
         await axios.delete(`/api/products/${productId}`)
       } catch (err) {
         console.error(err)
@@ -96,20 +95,17 @@ export default function (state = defaultSingleProduct, action) {
     case ADD_TO_CART:
       return {...state, cart: {...state.cart, products: action.products}}
     case UPDATE_PRODUCT:
-      const {name, price, id, status, description, imageUrl, inventory, ABV, brewery} = action.product
-      return state.map(product => {
-        if (product.id === id) {
-          product.name = name
-          product.price = price
-          product. status = status
-          product.description = description
-          product.imageUrl = imageUrl
-          product.inventory = inventory
-          product.ABV = ABV
-          product.brewery = brewery
-          return product
-        } else {return (product)}
-      })
+      const {name, price, status, description, imageUrl, inventory, ABV, brewery} = action.product
+      return {...state, product: {
+          name: name,
+          price: price,
+          status: status,
+          description: description,
+          imageUrl: imageUrl,
+          inventory: inventory,
+          ABV: ABV,
+          brewery: brewery}
+      }
     default:
       return state
   }

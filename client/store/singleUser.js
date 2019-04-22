@@ -7,6 +7,7 @@ import history from '../history'
 const SINGLE_USER = 'SINGLE_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GET_CART = 'GET_CART'
+const UPDATE_USER = 'UPDATE_USER'
 
 /**
  * INITIAL STATE
@@ -19,11 +20,21 @@ const defaultSingleUser= {user: {}, cart: {}}
 const singleUser = (user) => ({ type: SINGLE_USER, user})
 const removeUser = userId => ({ type: REMOVE_USER, userId: userId })
 const getActiveCart = (cart) => ({type: GET_CART, cart: cart })
+const userToUpdate = (user) => ({ type: UPDATE_USER, user: user})
 
 
 /**
  * THUNK CREATORS
  */
+export const updateUser = (user) => async (dispatch) => {
+    try {
+    dispatch(userToUpdate(user))
+    await axios.put(`/api/users/${user.id}`, user)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const fetchActiveCart = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/users/${id}/cart`)
@@ -68,6 +79,16 @@ export default function (state = defaultSingleUser, action) {
       return state.filter(user => user.id !== action.userId)
     case GET_CART:
       return {...state, cart: action.cart}
+    case UPDATE_USER:
+      const {firstName, lastName, email, admin, address, profilePicture} = action.user
+      return {...state, user: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        admin: admin,
+        address: address,
+        profilePicture: profilePicture
+      }}
     default:
       return state
   }

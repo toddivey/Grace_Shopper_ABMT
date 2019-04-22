@@ -52,6 +52,25 @@ router.get('/:userId',isAdmin, async (req, res, next) => {
   }
 })
 
+router.put('/:userId', isAdmin, async (req, res, next) => {
+  try {
+    await User.update(
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        admin: req.body.admin,
+        email: req.body.email,
+        address: req.body.address,
+        profilePicture: req.body.profilePicture,
+      },
+      {where: {id: Number(req.params.userId)}}
+    )
+    res.send('User Updated!')
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
@@ -75,6 +94,7 @@ router.post('/',isAdmin, async (req, res, next) => {
 
 router.put('/:userId',isAdmin, async (req, res, next) => {
   try {
+    console.log("PUT ROUTE REQ BODY", req.body)
     await User.update(
       { email: req.body.email,
         firstName: req.body.firstName,
@@ -82,7 +102,7 @@ router.put('/:userId',isAdmin, async (req, res, next) => {
         address: req.body.address,
         profilePicture: req.body.profilePicture,
       },
-      {where: {id: req.params.userId}}
+      {where: {id: Number(req.params.userId)}}
     )
     res.send('User Updated!')
   } catch (err) {

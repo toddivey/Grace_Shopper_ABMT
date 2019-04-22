@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductForm from './ProductForm'
 import {connect} from 'react-redux'
-import {updateProduct} from '../store/singleProduct'
+import {updateProduct, fetchSingleProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
@@ -27,6 +27,7 @@ class UpdateProduct extends React.Component {
   }
 
   async componentDidMount() {
+    this.props.fetchInitialProduct(this.props.match.params.productId)
     const {data} = await axios.get(
       `/api/products/${this.props.match.params.productId}`
     )
@@ -74,7 +75,7 @@ class UpdateProduct extends React.Component {
 
   render() {
     console.log('THIS PROPS', this.props)
-    const product = this.props.product
+    const product = this.props.product.product
 
     if (product && product.id) {
       return (
@@ -102,6 +103,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
     updateProduct: updatedProduct => dispatch(updateProduct(updatedProduct))
   }
 }
