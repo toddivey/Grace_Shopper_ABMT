@@ -9,6 +9,7 @@ import {me} from './store'
 import SingleProduct from './components/singleProduct'
 import {LandingPage} from './components/landing-page'
 import SingleUser from './components/singleUser'
+import SingleReview from './components/singleReview'
 import AllCategories from './components/allCategories'
 import SingleCategory from './components/singleCategory'
 import userCart from './components/userCart';
@@ -32,6 +33,7 @@ class Routes extends Component {
         <Route path="/products/page/:pageId" component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/users/:userId" component={SingleUser} />
+        <Route path="/reviews/:reviewId" component={SingleReview} />
         <Route path="/users" component={AllUsers} />
         <Route path="/products" component={AllProducts} />
         <Route path="/categories/:categoryId" component={SingleCategory} />

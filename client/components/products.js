@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {deleteProduct, fetchProducts} from '../store/products'
 import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
+
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchInitialProducts(this.props.match.params.pageId)
