@@ -1,7 +1,42 @@
 const router = require('express').Router()
-const {User, Review, Order} = require('../db/models')
+const {User, Review, Order, Cart, Product, CartProducts} = require('../db/models')
 const isAdmin = require('../middleware/admin')
 module.exports = router
+
+
+router.get('/:userId/cart/:cartId', async (req, res, next) => {
+  try {
+    const data = await Cart.findOne({
+      where: {id: Number(req.params.cartId), userId: Number(req.params.userId)},
+      include: [User, Product]
+    })
+    res.send(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/cart', async (req, res, next) => {
+  try {
+    const data = await Cart.findOne({
+      where: {status: 'open', userId: Number(req.params.userId)},
+      include: [User, Product]
+    })
+    res.send(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    console.log("REQ BODY", req.body[0])
+    const data = await CartProducts.create({productId: req.body[0].productId, cartId:req.body[0].cartId })
+    res.send("Cart Updated!")
+  } catch (err) {
+    next(err)
+  }
+})
 
 //will need to do eager loading once assosciations are set
 router.get('/:userId',isAdmin, async (req, res, next) => {

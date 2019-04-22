@@ -9,7 +9,7 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', firstName: 'Cody', lastName: 'theDog', address: '123 Fake Street', password: '123secure'}),
+    User.create({email: 'cody@email.com', firstName: 'Cody', lastName: 'theDog', address: '123 Fake Street', password: '123', admin: true}),
     User.create({ email: 'fred@email.com', firstName: 'Fred', lastName: 'theCat', address: '554 Ashland Avenue', password: '123pasword' }),
     User.create({ email: 'kat@email.com', firstName: 'Kat', lastName: 'McPherson', address: '234 Elm Street', password: '12345' }),
     User.create({ email: 'sam@email.com', firstName: 'Sam', lastName: 'Calagione', address: '4567 Fun Street', password: 'funfunfun' }),
@@ -47,7 +47,7 @@ async function seed() {
       name: 'Rev Pils', price: 10, status: 'In Stock', description: 'Our Chicago Pilsner. Brewed traditionally German, with a slightly American approach.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/RevPils-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 5, brewery: 'Revolution', categoriesId: 10
     }),
   ])
-  
+
 
 let n = 500
   while (n > 0) {
