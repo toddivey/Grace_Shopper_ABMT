@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {Navbar} from './components'
 import AllProducts from './components/products'
 import AllUsers from './components/users'
@@ -9,7 +8,7 @@ import {LandingPage} from './components/landing-page'
 const App = () => {
   return (
     <div>
-      {/* <LandingPage /> */}
+      <Navbar />    
       <Routes />
     </div>
   )
