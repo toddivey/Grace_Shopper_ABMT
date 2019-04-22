@@ -16,25 +16,13 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN
   },
   firstName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    type: Sequelize.STRING
   },
   lastName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    type: Sequelize.STRING
   },
   address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    type: Sequelize.STRING
   },
   createdAt: {
     type: Sequelize.DATE
@@ -43,7 +31,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     //defaultValue: DEFAULT IMAGE
   },
-  passwordHashed: {
+  password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
@@ -98,10 +86,8 @@ const setSaltAndPassword = user => {
   }
 }
 
-
-
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
-})
+}) 

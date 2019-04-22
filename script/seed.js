@@ -1,14 +1,15 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Review, Categories, Order, Cart, Product, CartProducts, OrderProducts} = require('../server/db/models')
+const faker = require ('faker')
+const {User, Review, Categories, Order, Cart, Product, CartProducts, ProductCategories} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', firstName: 'Cody', lastName: 'theDog', address: '123 Fake Street', password: '123secure'}),
+    User.create({email: 'cody@email.com', firstName: 'Cody', lastName: 'theDog', address: '123 Fake Street', password: '123', admin: true}),
     User.create({ email: 'fred@email.com', firstName: 'Fred', lastName: 'theCat', address: '554 Ashland Avenue', password: '123pasword' }),
     User.create({ email: 'kat@email.com', firstName: 'Kat', lastName: 'McPherson', address: '234 Elm Street', password: '12345' }),
     User.create({ email: 'sam@email.com', firstName: 'Sam', lastName: 'Calagione', address: '4567 Fun Street', password: 'funfunfun' }),
@@ -19,32 +20,49 @@ async function seed() {
     User.create({ email: 'winston@email.com', firstName: 'Winston', lastName: 'Churchill', address: '279 Kool Kids drive', password: 'laterLozers' }),
     User.create({ email: 'plato@email.com', firstName: 'Plato', lastName: 'Philosopher', address: '6879 Herring Avenue', password: 'notinacave' })
   ])
-const products = await Promise.all([
-  Product.create({
-    name: 'Freedom of Speach', price: 10, status: 'In Stock', description: 'Freedom of Speach is naturally soured in the brew kettle and fermented out dry with a lower alcohol level. Our easy-drinking session sour demonstrates a clean tartness, balanced out by an assembly of ripe peach flavor. Exercise your right to refreshment.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution', categoriesId: 8
-  }),
-  Product.create({
-    name: 'Freedom of Press', price: 10, status: 'In Stock', description: 'Keep currant with the latest entry in our session sour series-—sweet, earthy berry flavors from black currants to complement this 140 calorie, easy-drinking, lightly tart ale.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FinalFreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution', categoriesId: 8
-  }),
-  Product.create({
-    name: 'Rosa', price: 10, status: 'In Stock', description: 'A highly drinkable Golden Ale steeped with hibiscus, resulting in a natural tartness and slight pink hue.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/Rosa-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 6, brewery: 'Revolution', categoriesId: 6
-  }),
-  Product.create({
-    name: 'Sun Crusher', price: 10, status: 'In Stock', description: 'A crushable ale to celebrate the end of winter and rejoice the coming of warm weather!', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/SunCrusher-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution', categoriesId: 5
-  }),
-  Product.create({
-    name: 'Anti-Hero', price: 10, status: 'In Stock', description: 'Our flagship IPA is supremely aromatic, crisp, and drinkable.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/antihero-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution', categoriesId: 4
-  }),
-  Product.create({
-    name: 'Eugene', price: 10, status: 'In Stock', description: 'A striking, robust porter full of warmth and chocolate malt.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/eugene-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution', categoriesId: 3
-  }),
-  Product.create({
-    name: 'Cross of Gold', price: 10, status: 'In Stock', description: 'An easy drinking golden ale for everyone.  Brewed to be crisp and refreshing with a bit of wheat malt for body and a delicate hop finish.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/COG-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution', categoriesId: 5
-  }),
-  Product.create({
-    name: 'Rev Pils', price: 10, status: 'In Stock', description: 'Our Chicago Pilsner. Brewed traditionally German, with a slightly American approach.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/RevPils-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 5, brewery: 'Revolution', categoriesId: 10
-  }),
-])
+
+  const products = await Promise.all([
+    Product.create({
+      name: 'Freedom of Speach', price: 10, status: 'In Stock', description: 'Freedom of Speach is naturally soured in the brew kettle and fermented out dry with a lower alcohol level. Our easy-drinking session sour demonstrates a clean tartness, balanced out by an assembly of ripe peach flavor. Exercise your right to refreshment.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Freedom of Press', price: 10, status: 'In Stock', description: 'Keep currant with the latest entry in our session sour series-—sweet, earthy berry flavors from black currants to complement this 140 calorie, easy-drinking, lightly tart ale.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/FinalFreedomofSpeach-Website_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 50, ABV: 4, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Rosa', price: 10, status: 'In Stock', description: 'A highly drinkable Golden Ale steeped with hibiscus, resulting in a natural tartness and slight pink hue.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/Rosa-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 6, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Sun Crusher', price: 10, status: 'In Stock', description: 'A crushable ale to celebrate the end of winter and rejoice the coming of warm weather!', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/SunCrusher-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Anti-Hero', price: 10, status: 'In Stock', description: 'Our flagship IPA is supremely aromatic, crisp, and drinkable.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/antihero-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Eugene', price: 10, status: 'In Stock', description: 'A striking, robust porter full of warmth and chocolate malt.',  imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/eugene-can-NEW_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 7, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Cross of Gold', price: 10, status: 'In Stock', description: 'An easy drinking golden ale for everyone.  Brewed to be crisp and refreshing with a bit of wheat malt for body and a delicate hop finish.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/COG-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 100, ABV: 5, brewery: 'Revolution'
+    }),
+    Product.create({
+      name: 'Rev Pils', price: 10, status: 'In Stock', description: 'Our Chicago Pilsner. Brewed traditionally German, with a slightly American approach.', imageUrl: 'https://revbrew.com/imager/d37xww59oglu30_cloudfront_net/beer/RevPils-WebCan_7a380b392d6d6308eb7e6af7dcd28cdd.png', inventory: 200, ABV: 5, brewery: 'Revolution', categoriesId: 10
+    }),
+  ])
+
+
+let n = 500
+  while (n > 0) {
+   await Product.create({
+     name: faker.commerce.productName(),
+     price: faker.random.number(20),
+     status: 'In Stock',
+     description: faker.lorem.sentence(3),
+    imageUrl: 'https://bit.ly/2GnMIZy',
+    inventory: faker.random.number({min:5,max: 100}),
+    ABV: faker.random.number(10),
+    brewery: faker.company.companyName()
+   })
+   n--
+  }
 
   const orders = await Promise.all([
     Order.create({created_at: '2019-01-29 00:00:00.000 +00:00', shipping_status: 'delivered', tracking_num:'1Z-1234-60657', total:'10000', userId: 1}),
@@ -61,11 +79,11 @@ const products = await Promise.all([
     Cart.create({status: 'completed', created_at:'2019-04-13 00:00:00.000 +00:00', closed_at:'2019-04-13 00:00:00.000 +00:00', total: '8000', userId: 2}),
     Cart.create({status: 'completed', created_at:'2019-04-14 00:00:00.000 +00:00', closed_at:'2019-04-14 00:00:00.000 +00:00', total: '9000', userId: 5}),
     Cart.create({status: 'open', created_at:'2019-04-16 00:00:00.000 +00:00', total: '7000'})
-    
+
   ])
 
   const review = await Promise.all([
-    Review.create({content: "Here is a wonderful review about a Bourbon County. It was delicious, I would drink more of it.", rating: 9, productId: 1, userId: 2}), 
+    Review.create({content: "Here is a wonderful review about a Bourbon County. It was delicious, I would drink more of it.", rating: 9, productId: 1, userId: 2}),
     Review.create({content: "Bud light tastes terrible, hate it. Would only drink if its free.", rating: 2, productId: 3, userId: 3}),
     Review.create({content: "Great Lakes Dortumunder is tasty. An easy drinkable beer that I would be happy to have more of", rating: 8, productId: 2, userId: 2}),
     Review.create({content: "Pipeworks makes some crazy mash ups and their can design is awesome.", rating: 8, productId: 6, userId: 1}),
@@ -91,28 +109,36 @@ const products = await Promise.all([
     Categories.create({style:'Pilsner', description:'Made with neutral and hard water. Tend to be golden in colour with a dry, crisp, and somewhat bitter flavour. Pilsner stands out from other lagers due to its more distinctive hop taste.'})
   ])
 
-  const orderProducts = await Promise.all([
-    OrderProducts.create({quantity: 1, price: 10, orderId: 1, productId: 1 }),
-    OrderProducts.create({ quantity: 1, price: 10, orderId: 1, productId: 2 }),
-    OrderProducts.create({ quantity: 3, price: 10, orderId: 1, productId: 4 }),
-    OrderProducts.create({ quantity: 3, price: 10, orderId: 2, productId: 5 }),
-    OrderProducts.create({ quantity: 6, price: 10, orderId: 3, productId: 2 }),
-    OrderProducts.create({ quantity: 1, price: 10, orderId: 4, productId: 4 })
-  ])
+  // const productCategories = await Promise.all([
+  //   ProductCategories.create({ categoryId: 1, productId: 1 }),
+  //   ProductCategories.create({ categoryId: 1, productId: 2 }),
+  //   ProductCategories.create({ categoryId: 1, productId: 4 }),
+  //   ProductCategories.create({ categoryId: 2, productId: 5 }),
+  //   ProductCategories.create({ categoryId: 3, productId: 2 }),
+  //   ProductCategories.create({ categoryId: 4, productId: 4 })
+  // ])
+
+  let pc = 500
+  let prodId = 1
+  while (pc > 0) {
+   await ProductCategories.create({
+     categoryId: faker.random.number({min: 1, max: 10}),
+     productId: prodId
+   })
+   pc--;
+   prodId++
+  }
 
   const cartProducts = await Promise.all([
-    CartProducts.create({quantity: 1, cartId: 3, productId: 1 }),
-    CartProducts.create({ quantity: 1, cartId: 2, productId: 2 }),
-    CartProducts.create({ quantity: 3, cartId: 4, productId: 4 }),
-    CartProducts.create({ quantity: 3, cartId: 1, productId: 5 }),
-    CartProducts.create({ quantity: 6, cartId: 5, productId: 2 }),
-    CartProducts.create({ quantity: 1, cartId: 1, productId: 4 })
+    CartProducts.create({quantity: 1, price: 10, cartId: 3, productId: 1 }),
+    CartProducts.create({ quantity: 1, price: 10, cartId: 2, productId: 2 }),
+    CartProducts.create({ quantity: 3, price: 10, cartId: 4, productId: 4 }),
+    CartProducts.create({ quantity: 3, price: 10, cartId: 1, productId: 5 }),
+    CartProducts.create({ quantity: 6, price: 10, cartId: 5, productId: 2 }),
+    CartProducts.create({ quantity: 1, price: 10, cartId: 1, productId: 4 })
   ])
 
-  console.log(`seeded ${categories.length} categories`)
-  console.log(`seeded ${review.length} reviews`)
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${products.length} products`)
+
   console.log(`seeded successfully`)
 }
 

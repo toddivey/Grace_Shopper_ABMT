@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteUser, fetchSingleUser} from '../store/singleUser'
+import {deleteUser, fetchSingleUser, fetchActiveCart} from '../store/singleUser'
 import {Button, Image, Grid, Card} from 'semantic-ui-react';
 import FilteredReviews from './filteredReviews'
 
@@ -9,9 +9,11 @@ class SingleUser extends React.Component {
 
   componentDidMount() {
     this.props.fetchInitialUser(this.props.match.params.userId)
+    this.props.fetchActiveCart(this.props.match.params.userId)
   }
   render () {
-    const user = this.props.user
+    const user = this.props.user.user
+    console.log("STATE", this.props)
     const removeUser = this.props.deleteUser
 
 
@@ -56,7 +58,8 @@ class SingleUser extends React.Component {
 
 const mapDispatch = (dispatch) => ({
   fetchInitialUser: (id) => dispatch(fetchSingleUser(id)),
-  deleteUser: (id) => dispatch(deleteUser(id))
+  deleteUser: (id) => dispatch(deleteUser(id)),
+  fetchActiveCart: (id) => dispatch(fetchActiveCart(id))
 })
 
 const mapState = (state) => {

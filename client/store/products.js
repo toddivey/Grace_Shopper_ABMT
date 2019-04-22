@@ -24,9 +24,10 @@ const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId
 /**
  * THUNK CREATORS
  */
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (pageId) => async (dispatch) => {
   try {
-    const res = await axios.get('/api/products')
+    if(!pageId) pageId = 1
+    const res = await axios.get(`/api/products/page/${pageId}`)
     dispatch(getProducts(res.data || defaultProducts))
   } catch (err) {
     console.error(err)

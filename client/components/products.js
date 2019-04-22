@@ -1,73 +1,82 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteProduct, fetchProducts} from '../store/products'
-import {Button, Image, Grid, Card} from 'semantic-ui-react';
+import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
 
 class AllProducts extends React.Component {
-
   componentDidMount() {
-    this.props.fetchInitialProducts()
+    this.props.fetchInitialProducts(this.props.match.params.pageId)
   }
-  render () {
+  render() {
     const products = Array.from(this.props.products) || []
+    console.log(products)
     const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
       return (
         <div>
-          <h1>No Products</h1>
+          <h1>No Products Here</h1>
         </div>
       )
-    }
-    else {
+    } else {
       return (
         <div>
           <div>
-            <Grid>
-              <Grid.Row columns = {4}>
-            {products.map (product => {
-              return (
-                <Grid.Column key = {product.id}>
-                  <Card>
-                <div key={product.id}>
-                    <Card.Content>
-                    <Image src={product.imageUrl} size = 'small' />
-                  <Link to={`/products/${product.id}`}>
-                    <Card.Header> {product.name}</Card.Header>
-                  </Link>
-                    <Card.Meta>Brewery: {product.brewery} </Card.Meta>
-                    <Card.Description>Price: ${product.price}</Card.Description>
+            <Grid relaxed="very" divided="vertically" columns={4}>
+              <Grid.Row>
+                {products.map(product => {
+                  return (
+                    <Grid.Column key={product.id}>
+                      <Card centered>
+                        <div key={product.id}>
+                          <Card.Content centered>
+                            <Image
+                              src={product.imageUrl}
+                              size="small"
+                              centered
+                            />
+                            <Link to={`/products/${product.id}`}>
+                              <Card.Header> {product.name}</Card.Header>
+                            </Link>
+                            <Card.Meta>Brewery: {product.brewery} </Card.Meta>
+                            <Card.Description>
+                              Price: ${product.price}
+                            </Card.Description>
+                          </Card.Content>
+                          <Card.Content>
+                            Alcohol Content: {product.ABV}%
+                          </Card.Content>
+                          <Card.Content>Status: {product.status}</Card.Content>
+                          <Button
+                            className="mini ui red inverted button"
+                            onClick={() => removeProduct(product.id)}
+                          >
+                            DELETE
+                          </Button>
 
-                    </Card.Content>
-                    <Card.Content>
-                    <p>
-                      Alcohol Content: {product.ABV}%
-                      Status: {product.status}
-                    </p>
-                    </Card.Content>
-
-                    <Button className='mini ui red inverted button' onClick={() => removeProduct(product.id)}>DELETE</Button>
-                </div>
-                </Card>
-                </Grid.Column>
-              )
-            })}
-            </Grid.Row>
+                        </div>
+                      </Card>
+                    </Grid.Column>
+                  )
+                })}
+              </Grid.Row>
             </Grid>
           </div>
+          {/* NOTE: we need to figure out totalPAges eventually  */}
+          <Pagination defaultActivePage={1} totalPages={5} />
         </div>
       )
     }
-}
+  }
 }
 
-const mapDispatch = (dispatch) => ({
-  fetchInitialProducts: () => dispatch(fetchProducts()),
+const mapDispatch = dispatch => ({
+  fetchInitialProducts: (pageId) => dispatch(fetchProducts(pageId)),
   deleteProduct: id => dispatch(deleteProduct(id))
 })
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     products: state.products
   }

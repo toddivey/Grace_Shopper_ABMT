@@ -1,7 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteProduct, fetchSingleProduct} from '../store/singleProduct'
+import {
+  deleteProduct,
+  fetchSingleProduct,
+  fetchActiveCart,
+  productToCart
+} from '../store/singleProduct'
 import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react';
 import products from '../store/products';
 import FilteredReviews from './filteredReviews'
@@ -10,10 +15,14 @@ class SingleProduct extends React.Component {
 
   componentDidMount() {
     this.props.fetchInitialProduct(this.props.match.params.productId)
+    this.props.fetchActiveCart()
   }
   render () {
-    const product = this.props.product
+    console.log("PROPS", this.props)
+    const product = this.props.product.product
+
     const removeProduct = this.props.deleteProduct
+    const addToCart = this.props.productToCart
 
     if (!product.id) {
       return (
@@ -45,7 +54,7 @@ class SingleProduct extends React.Component {
               </Grid.Column>
               <Grid centered columns={2} divided>
                 <Grid.Column>
-                  <Button type="button" onClick={() => console.log('added to cart!')}>
+                  <Button type="button" onClick={() => addToCart(product.id, this.props.product.cart.id)}>
                     Add to Cart!
                   </Button>
                   <Button type="button" onClick={() => removeProduct(product.id)}>
@@ -62,12 +71,14 @@ class SingleProduct extends React.Component {
           </div>
         </div>
     }
-}
+  }
 }
 
-const mapDispatch = (dispatch) => ({
-  fetchInitialProduct: (id) => dispatch(fetchSingleProduct(id)),
-  deleteProduct: (id) => dispatch(deleteProduct(id))
+const mapDispatch = dispatch => ({
+  fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
+  deleteProduct: id => dispatch(deleteProduct(id)),
+  fetchActiveCart: id => dispatch(fetchActiveCart(id)),
+  productToCart: (id, cartId) => dispatch(productToCart(id, cartId))
 })
 
 const mapState = (state) => {
