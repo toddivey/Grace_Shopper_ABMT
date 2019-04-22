@@ -13,11 +13,10 @@ class SingleUser extends React.Component {
   }
   render () {
     const user = this.props.user.user
-    console.log("STATE", this.props)
     const removeUser = this.props.deleteUser
 
 
-    if (!user.id) {
+    if (!user) {
       return (
         <div>
           <h1>No Such User Exists</h1>
@@ -25,7 +24,6 @@ class SingleUser extends React.Component {
       )
     }
     else {
-      console.log('PROPS'.this.props)
       return (<div>
           <div>
             <Grid>
@@ -33,7 +31,6 @@ class SingleUser extends React.Component {
                 <div key={user.id}>
                   <Card.Content>
                     <Image src={user.profilePicture} size="small" bordered />
-                    {/* <Link to={`/userss/${user.id}`} > */}
                     <Card.Header>
                       {' '}
                       {user.firstName} {user.lastName}
@@ -41,7 +38,6 @@ class SingleUser extends React.Component {
                     <Card.Description>
                       {user.firstName}'s email is {user.email}
                     </Card.Description>
-                    {/* </Link> */}
                     <Button type="button" onClick={() => removeUser(user.id)}>
                       DELETE
                     </Button>
@@ -49,7 +45,7 @@ class SingleUser extends React.Component {
                 </div>
               </Card>
             </Grid>
-            {/* <FilteredReviews reviews={user.reviews} /> */}
+            <FilteredReviews reviews={user.reviews} />
           </div>
         </div>)
     }

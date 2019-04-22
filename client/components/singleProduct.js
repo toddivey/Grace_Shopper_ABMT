@@ -18,13 +18,11 @@ class SingleProduct extends React.Component {
     this.props.fetchActiveCart()
   }
   render () {
-    console.log("PROPS", this.props)
     const product = this.props.product.product
-
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
 
-    if (!product.id) {
+    if (!product) {
       return (
         <div>
           <h1>No Products</h1>
@@ -32,7 +30,6 @@ class SingleProduct extends React.Component {
       )
     }
     else {
-      console.log('THIS SHOULD WORK', product.reviews)
       return <div>
           <div id="singleProduct">
             <div key={product.id}>
