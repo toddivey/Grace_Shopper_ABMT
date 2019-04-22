@@ -10,6 +10,7 @@ const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const UPDATE_CART = 'UPDATE_CART'
 
 /**
  * INITIAL STATE
@@ -23,6 +24,7 @@ const singleProduct = (product) => ({ type: SINGLE_PRODUCT, product: product})
 const removeProduct = (productId) => ({ type: REMOVE_PRODUCT, productId: productId })
 const getCart = (cart) => ({ type: GET_CART, cart: cart})
 const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
+const updateCartQuantity = (productId) => ({type: UPDATE_CART})
 
 /**
  * THUNK CREATORS
@@ -35,6 +37,18 @@ export const productToCart = (productId, cartId) => async (dispatch) => {
   } catch (err) {
     console.error(err)
   }
+}
+
+export const updateCartQuantity = (productId, cartId) => async (dispatch) => {
+  try {
+    const user = await axios.get('/auth/me')
+    await axios.put(`/api/users/${user.data.id}/cart/${cartId}`,[productId])
+
+
+  }catch(err){
+    console.error(err)
+  }
+
 }
 
 export const fetchActiveCart = () => async (dispatch) => {

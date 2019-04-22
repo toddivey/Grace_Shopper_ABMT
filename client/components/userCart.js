@@ -40,6 +40,12 @@ class UserCart extends React.Component {
                       <Link to={`/products/${product.id}`}>
                         <List.Item>{product.name}</List.Item>
                       </Link>
+                        <List.Item>
+                        <div class="field">
+                       <Button class="medium ui button"> Update Quantity: </Button>
+                        <input type="quantity" placeholder={product.cartProducts.quantity} />
+                       </div>
+                      </List.Item>
                     </List>
                   )
                 })}
