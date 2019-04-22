@@ -2,21 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteProduct, fetchProducts} from '../store/products'
-import {Button, Image, Grid, Card} from 'semantic-ui-react'
+import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
 class AllProducts extends React.Component {
   componentDidMount() {
-    this.props.fetchInitialProducts()
+    this.props.fetchInitialProducts(this.props.match.params.pageId)
   }
   render() {
     const products = Array.from(this.props.products) || []
-    console.log('#########', this.props)
-
+    console.log(products)
     const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
       return (
         <div>
-          <h1>No Products</h1>
+          <h1>No Products Here</h1>
         </div>
       )
     } else {
@@ -29,7 +28,6 @@ class AllProducts extends React.Component {
                   return (
                     <Grid.Column key={product.id}>
                       <Card centered>
-                        {/* <Image src={product.imageUrl} /> */}
                         <div key={product.id}>
                           <Card.Content centered>
                             <Image
@@ -55,6 +53,7 @@ class AllProducts extends React.Component {
                           >
                             DELETE
                           </Button>
+
                         </div>
                       </Card>
                     </Grid.Column>
@@ -63,6 +62,8 @@ class AllProducts extends React.Component {
               </Grid.Row>
             </Grid>
           </div>
+          {/* NOTE: we need to figure out totalPAges eventually  */}
+          <Pagination defaultActivePage={1} totalPages={5} />
         </div>
       )
     }
@@ -70,7 +71,7 @@ class AllProducts extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  fetchInitialProducts: () => dispatch(fetchProducts()),
+  fetchInitialProducts: (pageId) => dispatch(fetchProducts(pageId)),
   deleteProduct: id => dispatch(deleteProduct(id))
 })
 
