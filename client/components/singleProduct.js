@@ -53,7 +53,7 @@ class SingleProduct extends React.Component {
               </Grid.Column>
               <Grid centered columns={2} divided>
                 <Grid.Column>
-                  <Button type="button" onClick={() => addToCart(product.id)}>
+                  <Button type="button" onClick={() => addToCart(product.id, this.props.product.cart.id)}>
                     Add to Cart!
                   </Button>
                   <Button type="button" onClick={() => removeProduct(product.id)}>
@@ -76,7 +76,7 @@ const mapDispatch = dispatch => ({
   fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
   deleteProduct: id => dispatch(deleteProduct(id)),
   fetchActiveCart: id => dispatch(fetchActiveCart(id)),
-  productToCart: id => dispatch(productToCart(id))
+  productToCart: (id, cartId) => dispatch(productToCart(id, cartId))
 })
 
 const mapState = (state) => {

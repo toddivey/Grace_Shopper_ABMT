@@ -27,11 +27,11 @@ const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
 /**
  * THUNK CREATORS
  */
-export const productToCart = (productId) => async (dispatch) => {
+export const productToCart = (productId, cartId) => async (dispatch) => {
   try {
     await dispatch(addToCart(productId))
     const user = await axios.get('/auth/me')
-    await axios.put(`/api/users/${user.data.id}/cart`, productId)
+    await axios.post(`/api/users/${user.data.id}/cart`, [{productId, cartId}])
   } catch (err) {
     console.error(err)
   }
