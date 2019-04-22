@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import { withRouter } from "react-router"
 import {deleteProduct, fetchProducts} from '../store/products'
 import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
@@ -82,4 +83,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default withRouter(connect(mapState, mapDispatch)(AllProducts))

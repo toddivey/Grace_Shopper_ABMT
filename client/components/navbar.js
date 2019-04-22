@@ -18,20 +18,24 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Menu.Item as="a">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
+            </Menu.Item>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-            </Menu.Item>
           </Container>
         ) : (
           <Container text>
             {/* The navbar will show these links before you log in */}
+            <Menu.Item as="a">
+              <Link to="/">Home</Link>
+            </Menu.Item>
             <Menu.Item as="a">
               <Link to="/login">Login</Link>
             </Menu.Item>
             <Menu.Item as="a">
               <Link to="/signup">Sign Up</Link>
             </Menu.Item>
+            <Menu.Item as="a">CART GOES HERE</Menu.Item>
           </Container>
         )}
       </nav>
