@@ -11,6 +11,7 @@ import {LandingPage} from './components/landing-page'
 import SingleUser from './components/singleUser'
 import AllCategories from './components/allCategories'
 import SingleCategory from './components/singleCategory'
+import userCart from './components/userCart';
 /**
  * COMPONENT
  */
@@ -27,6 +28,7 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={userCart} />
         <Route path="/products/page/:pageId" component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/users/:userId" component={SingleUser} />
