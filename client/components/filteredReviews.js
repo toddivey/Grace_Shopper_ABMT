@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 export default class FilteredReviews extends React.Component {
 
   render() {
-    console.log('PROPS Filtered Reviews', this.props)
     const reviews = this.props.reviews
     if (reviews) {
       return (<div>
