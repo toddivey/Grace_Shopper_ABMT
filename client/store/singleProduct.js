@@ -10,11 +10,12 @@ const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 
 /**
  * INITIAL STATE
  */
-const defaultSingleProduct = {}
+const defaultSingleProduct = []
 
 /**
  * ACTION CREATORS
@@ -23,10 +24,19 @@ const singleProduct = (product) => ({ type: SINGLE_PRODUCT, product: product})
 const removeProduct = (productId) => ({ type: REMOVE_PRODUCT, productId: productId })
 const getCart = (cart) => ({ type: GET_CART, cart: cart})
 const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
-
+const productToUpdate = (product) => ({type: UPDATE_PRODUCT, product: product})
 /**
  * THUNK CREATORS
  */
+export const updateProduct = (product) => async (dispatch) => {
+  try {
+    dispatch(productToUpdate(product))
+    await axios.put(`/api/products/${product.id}`, product)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const productToCart = (productId, cartId) => async (dispatch) => {
   try {
     await dispatch(addToCart(productId))
@@ -85,6 +95,21 @@ export default function (state = defaultSingleProduct, action) {
       return state.filter(product => product.id !== action.productId)
     case ADD_TO_CART:
       return {...state, cart: {...state.cart, products: action.products}}
+    case UPDATE_PRODUCT:
+      const {name, price, id, status, description, imageUrl, inventory, ABV, brewery} = action.product
+      return state.map(product => {
+        if (product.id === id) {
+          product.name = name
+          product.price = price
+          product. status = status
+          product.description = description
+          product.imageUrl = imageUrl
+          product.inventory = inventory
+          product.ABV = ABV
+          product.brewery = brewery
+          return product
+        } else {return (product)}
+      })
     default:
       return state
   }

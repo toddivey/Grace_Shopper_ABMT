@@ -8,7 +8,6 @@ import {
   productToCart
 } from '../store/singleProduct'
 import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react';
-import products from '../store/products';
 import FilteredReviews from './filteredReviews'
 
 class SingleProduct extends React.Component {
@@ -57,10 +56,12 @@ class SingleProduct extends React.Component {
                   <Button type="button" onClick={() => removeProduct(product.id)}>
                     DELETE
                   </Button>
+                  <Link to={`/products/${product.id}/update`}>
+                    UPDATE
+                  </Link>
                 </Grid.Column>
               </Grid>
-              <Grid centered columns={1}>
-              </Grid>
+              <Grid centered columns={1} />
               <div>
                 <FilteredReviews reviews={product.reviews} />
               </div>

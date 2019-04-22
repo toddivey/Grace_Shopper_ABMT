@@ -33,8 +33,6 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-
-
 router.get('/', async (req, res, next) => {
   try {
     //will need to do eager loading once assosciations are set
@@ -63,7 +61,7 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:productId',isAdmin, async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     await Product.update(
       { name: req.body.name,
@@ -75,7 +73,7 @@ router.put('/:productId',isAdmin, async (req, res, next) => {
         ABV: req.body.ABV,
         brewery: req.body.brewery
       },
-      {where: {id: req.params.productId}}
+      {where: {id: Number(req.params.productId)}}
     )
     res.send('Product Updated!')
   } catch (err) {
