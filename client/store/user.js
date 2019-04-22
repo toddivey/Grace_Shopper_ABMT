@@ -35,6 +35,7 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
+    alert('Invalid Username and/or Password')
     return dispatch(getUser({error: authError}))
   }
 

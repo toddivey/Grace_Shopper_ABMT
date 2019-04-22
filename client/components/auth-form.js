@@ -2,12 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import { runInNewContext } from 'vm';
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+  console.log(error)
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -58,12 +60,19 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+    async handleSubmit(evt) {
+      try{
+        evt.preventDefault()
+        const formName = evt.target.name
+        const email = evt.target.email.value
+        const password = evt.target.password.value
+        await dispatch(auth(email, password, formName))
+      }
+      catch (err){
+        this.setState({
+          error: `There was a login error ${err}`
+        })
+      }
     }
   }
 }
