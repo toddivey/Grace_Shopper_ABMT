@@ -18,7 +18,7 @@ router.get('/:userId/cart/:cartId', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
-    const data = await Cart.findOne({
+    const data = await Cart.findOrCreate({
       where: {status: 'open', userId: Number(req.params.userId)},
       include: [User, Product]
     })

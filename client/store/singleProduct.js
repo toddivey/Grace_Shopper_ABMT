@@ -42,7 +42,7 @@ export const fetchActiveCart = () => async (dispatch) => {
     const user = await axios.get('/auth/me')
     const cart = await axios.get(`/api/users/${user.data.id}/cart`)
     console.log("CART", cart)
-    dispatch(getCart(cart.data))
+    dispatch(getCart(cart.data[0]))
   } catch (err) {
     console.error(err)
   }
