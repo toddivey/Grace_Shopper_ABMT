@@ -26,10 +26,11 @@ import Navbar from './navbar'
 
 export const LandingPage = () => (
   <div>
-    <Container style={{marginTop: '3em'}}>
+    <AllProducts />
+    {/* <Container style={{marginTop: '3em'}}>
     <Header as="h1">
       <Link to="/products">See All Products</Link>
     </Header>  
-    </Container>
+    </Container> */}
   </div>
 )
