@@ -7,8 +7,9 @@ import productsReducer from './products'
 import singleProductReducer from './singleProduct'
 import singleUserReducer from './singleUser'
 import usersReducer from './users'
+import categoriesReducer from './categories'
 
-const reducer = combineReducers({user: singleUserReducer, products: productsReducer, product: singleProductReducer, users: usersReducer})
+const reducer = combineReducers({user: singleUserReducer, products: productsReducer, product: singleProductReducer, users: usersReducer, categories: categoriesReducer})
 
 
 const middleware = composeWithDevTools(
@@ -22,3 +23,4 @@ export * from './products'
 export * from './singleProduct'
 export * from './singleUser'
 export * from './users'
+export * from './categories'
