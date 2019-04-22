@@ -44,6 +44,9 @@ class UserCart extends React.Component {
                   )
                 })}
               </Grid.Column>
+              <div>
+                <Header>Total Price: {cart.products.reduce((accumulator, currentProduct) => accumulator + currentProduct.price, 0)} </Header>
+              </div>
             </div>
           </div>
         </div>
