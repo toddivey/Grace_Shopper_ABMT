@@ -17,9 +17,8 @@ class SingleProduct extends React.Component {
     this.props.fetchActiveCart()
   }
   render () {
-    console.log("PROPS", this.props)
     const product = this.props.product.product
-
+    console.log(this.props)
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
 
@@ -31,7 +30,6 @@ class SingleProduct extends React.Component {
       )
     }
     else {
-      console.log('THIS SHOULD WORK', product.reviews)
       return <div>
           <div id="singleProduct">
             <div key={product.id}>
@@ -76,12 +74,14 @@ const mapDispatch = dispatch => ({
   fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
   deleteProduct: id => dispatch(deleteProduct(id)),
   fetchActiveCart: id => dispatch(fetchActiveCart(id)),
-  productToCart: (id, cartId) => dispatch(productToCart(id, cartId))
+  productToCart: (id, cartId) => dispatch(productToCart(id, cartId)),
 })
 
 const mapState = (state) => {
+  console.log('this is state', state)
   return {
-    product: state.product
+    product: state.product,
+    user: state.user
   }
 }
 
