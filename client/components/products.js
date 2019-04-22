@@ -29,19 +29,31 @@ class AllProducts extends React.Component {
                     <Grid.Column key={product.id}>
                       <Card centered>
                         <div key={product.id}>
-                        <Card.Content centered>
-                    <Image src={product.imageUrl} size = 'small' centered/>
-                  <Link to={`/products/${product.id}`}>
-                    <Card.Header> {product.name}</Card.Header>
+                          <Card.Content centered>
+                            <Image
+                              src={product.imageUrl}
+                              size="small"
+                              centered
+                            />
+                            <Link to={`/products/${product.id}`}>
+                              <Card.Header> {product.name}</Card.Header>
+                            </Link>
+                            <Card.Meta>Brewery: {product.brewery} </Card.Meta>
+                            <Card.Description>
+                              Price: ${product.price}
+                            </Card.Description>
+                          </Card.Content>
+                          <Card.Content>
+                            Alcohol Content: {product.ABV}%
+                          </Card.Content>
+                          <Card.Content>Status: {product.status}</Card.Content>
+                          <Button
+                            className="mini ui red inverted button"
+                            onClick={() => removeProduct(product.id)}
+                          >
+                            DELETE
+                          </Button>
 
-                  </Link>
-                    <Card.Meta>Brewery: {product.brewery} </Card.Meta>
-                    <Card.Description>Price: ${product.price}</Card.Description>
-
-                    </Card.Content>
-                    <Card.Content>Alcohol Content: {product.ABV}%</Card.Content>
-                    <Card.Content>Status: {product.status}</Card.Content>
-                    <Button className='mini ui red inverted button' onClick={() => removeProduct(product.id)}>DELETE</Button>
                         </div>
                       </Card>
                     </Grid.Column>

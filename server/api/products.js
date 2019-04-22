@@ -42,7 +42,8 @@ router.get('/', async (req, res, next) => {
     const limit = offset + 8
 
     const products = await Product.findAll({limit,
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
+      include: [Categories]
     })
     res.json(products)
   } catch (err) {

@@ -1,11 +1,11 @@
 
 
 module.exports = (req, res, next) => {
-  console.log('ADMIN MIDDLEWARE:', req.user.dataValues.admin)
+  console.log('ADMIN MIDDLEWARE:', req.user.dataValues)
   if(req.user && (req.user.dataValues.admin === true)) {
      next()
   } else {
-    res.redirect('http://google.com')//updated to send whatever message you want
+    res.status(401)//updated to send whatever message you want
   }
 }
 

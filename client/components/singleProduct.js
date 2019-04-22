@@ -61,7 +61,7 @@ class SingleProduct extends React.Component {
         </div>
       )
     }
-}
+  }
 }
 
 const mapDispatch = (dispatch) => ({
