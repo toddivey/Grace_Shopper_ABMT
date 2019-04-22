@@ -39,17 +39,17 @@ export const productToCart = (productId, cartId) => async (dispatch) => {
   }
 }
 
-export const updateCartQuantity = (productId, cartId) => async (dispatch) => {
-  try {
-    const user = await axios.get('/auth/me')
-    await axios.put(`/api/users/${user.data.id}/cart/${cartId}`,[productId])
+// export const updateCartQuantity = (productId, cartId) => async (dispatch) => {
+//   try {
+//     const user = await axios.get('/auth/me')
+//     await axios.put(`/api/users/${user.data.id}/cart/${cartId}`,[productId])
 
 
-  }catch(err){
-    console.error(err)
-  }
+//   }catch(err){
+//     console.error(err)
+//   }
 
-}
+// }
 
 export const fetchActiveCart = () => async (dispatch) => {
   try {

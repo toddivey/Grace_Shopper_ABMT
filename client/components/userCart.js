@@ -42,8 +42,8 @@ class UserCart extends React.Component {
                       </Link>
                         <List.Item>
                         <div class="field">
-                       <Button class="medium ui button"> Update Quantity: </Button>
-                        <input type="quantity" placeholder={product.cartProducts.quantity} />
+                       <Button class="medium ui button" onClick={() => console.log(document.getElementById(`${product.id}`).value)}> Update Quantity: </Button>
+                        <input type="number" id={product.id} placeholder={product.cartProducts.quantity} />
                        </div>
                       </List.Item>
                     </List>
