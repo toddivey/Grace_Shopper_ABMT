@@ -9,6 +9,7 @@ import {
 } from '../store/singleProduct'
 import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react';
 import products from '../store/products';
+import FilteredReviews from './filteredReviews'
 
 class SingleProduct extends React.Component {
 
@@ -17,13 +18,11 @@ class SingleProduct extends React.Component {
     this.props.fetchActiveCart()
   }
   render () {
-    console.log("PROPS", this.props)
     const product = this.props.product.product
-
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
 
-    if (!product || product.length < 1) {
+    if (!product) {
       return (
         <div>
           <h1>No Products</h1>
@@ -31,7 +30,6 @@ class SingleProduct extends React.Component {
       )
     }
     else {
-      console.log('THIS SHOULD WORK', product.reviews)
       return <div>
           <div id="singleProduct">
             <div key={product.id}>
@@ -62,9 +60,10 @@ class SingleProduct extends React.Component {
                 </Grid.Column>
               </Grid>
               <Grid centered columns={1}>
-                <Header size="medium">Reviews: </Header>
-                <List />
               </Grid>
+              <div>
+                <FilteredReviews reviews={product.reviews} />
+              </div>
             </div>
           </div>
         </div>
