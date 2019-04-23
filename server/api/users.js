@@ -61,11 +61,14 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    const data = await CartProducts.create({
-      productId: req.body[0].productId,
-      cartId: req.body[0].cartId
+    const data = await CartProducts.findOrCreate({
+      where: {
+        productId: req.body[0].productId,
+        cartId: req.body[0].cartId
+      }
     })
-    res.send('Cart Updated!')
+    res.redirect('./cart')
+    // res.send('Cart Updated!')
   } catch (err) {
     console.log('I AM ERR', err)
     next(err)
