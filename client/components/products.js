@@ -18,7 +18,7 @@ class AllProducts extends React.Component {
     const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
       return (<div>
-          {isAdmin ? <Link to='/products/new'>Add new product</Link>: <div></div>}
+          {isAdmin ? <Link to='/products/new' centered >Add new product</Link>: <div></div>}
           <h1>No Products Here</h1>
         </div>)
     } else {
