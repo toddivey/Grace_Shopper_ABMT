@@ -35,7 +35,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Menu.Item as="a">
               <Link to="/signup">Sign Up</Link>
             </Menu.Item>
-            <Menu.Item as="a">CART GOES HERE</Menu.Item>
+            <Menu.Item as="a">
+            <Link to ="/cart">Cart</Link>
+            </Menu.Item>
           </Container>
         )}
       </nav>
