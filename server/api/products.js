@@ -50,7 +50,6 @@ router.get('/', async (req, res, next) => {
 })
 
 
-
 router.post('/', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)

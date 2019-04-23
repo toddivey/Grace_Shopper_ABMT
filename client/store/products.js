@@ -13,7 +13,9 @@ const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 /**
  * INITIAL STATE
  */
-const defaultProducts = {}
+const defaultProducts = {
+  products: []
+}
 
 /**
  * ACTION CREATORS

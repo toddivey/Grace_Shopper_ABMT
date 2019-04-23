@@ -7,6 +7,7 @@ import {getCurrentUser} from '../store/singleUser'
 import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
 
+
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchInitialProducts(this.props.match.params.pageId)
@@ -34,7 +35,14 @@ class AllProducts extends React.Component {
                       <Card centered>
                         <div key={product.id}>
                           <Card.Content centered>
-                            <Image src={product.imageUrl} size="small" centered />
+
+                          <Link to={`/products/${product.id}`}>
+                            <Image
+                              src={product.imageUrl}
+                              size="small"
+                              centered
+                            />
+                            </Link>
                             <Link to={`/products/${product.id}`}>
                               <Card.Header> {product.name}</Card.Header>
                             </Link>
