@@ -8,6 +8,7 @@ const SINGLE_USER = 'SINGLE_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GET_CART = 'GET_CART'
 const UPDATE_USER = 'UPDATE_USER'
+const ADD_USER = 'ADD_USER'
 
 /**
  * INITIAL STATE
@@ -21,11 +22,23 @@ const singleUser = (user) => ({ type: SINGLE_USER, user})
 const removeUser = userId => ({ type: REMOVE_USER, userId: userId })
 const getActiveCart = (cart) => ({type: GET_CART, cart: cart })
 const userToUpdate = (user) => ({ type: UPDATE_USER, user: user})
-
+const userToAdd = (user) => ({type: ADD_USER, user: user})
 
 /**
  * THUNK CREATORS
  */
+export const addUser = user => async dispatch => {
+  try {
+    const res = await axios.post('/api/users', user)
+    if (res.data) dispatch(userToAdd(res.data))
+    else {
+      console.error('Something went wrong with the create route')
+    }
+  } catch (err) {
+    console.err(err)
+  }
+}
+
 export const updateUser = (user) => async (dispatch) => {
     try {
     dispatch(userToUpdate(user))
@@ -81,14 +94,9 @@ export default function (state = defaultSingleUser, action) {
       return {...state, cart: action.cart}
     case UPDATE_USER:
       const {firstName, lastName, email, admin, address, profilePicture} = action.user
-      return {...state, user: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        admin: admin,
-        address: address,
-        profilePicture: profilePicture
-      }}
+      return {...state, user: {firstName: firstName, lastName: lastName, email: email, admin: admin, address: address, profilePicture: profilePicture}}
+    case ADD_USER:
+      return {...state, user: action.user}
     default:
       return state
   }

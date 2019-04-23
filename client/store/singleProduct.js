@@ -11,6 +11,7 @@ const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const ADD_PRODUCT = 'ADD_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -25,9 +26,21 @@ const removeProduct = (productId) => ({ type: REMOVE_PRODUCT, productId: product
 const getCart = (cart) => ({ type: GET_CART, cart: cart})
 const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
 const productToUpdate = (product) => ({type: UPDATE_PRODUCT, product: product})
+const productToAdd = (product) => ({ type: ADD_PRODUCT, product: product})
 /**
  * THUNK CREATORS
  */
+export const addProduct = (product) => async (dispatch) => {
+  try {
+    const res = await axios.post('/api/products', product)
+    if (res.data) dispatch(productToAdd(res.data))
+    else {console.error('Something went wrong with the create route')}
+  } catch (err) {
+    console.err(err)
+  }
+}
+
+
 export const updateProduct = (product) => async (dispatch) => {
   try {
     dispatch(productToUpdate(product))
@@ -106,6 +119,8 @@ export default function (state = defaultSingleProduct, action) {
           ABV: ABV,
           brewery: brewery}
       }
+    case ADD_PRODUCT:
+      return {...state, product: action.product}
     default:
       return state
   }

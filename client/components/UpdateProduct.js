@@ -63,7 +63,7 @@ class UpdateProduct extends React.Component {
         imageUrl: this.state.imageUrl,
         inventory: this.state.inventory,
         ABV: this.state.ABV,
-        brewery: this.state.brewery,
+        brewery: this.state.brewery
       }
       await this.props.updateProduct(updatedProduct)
     } catch (err) {

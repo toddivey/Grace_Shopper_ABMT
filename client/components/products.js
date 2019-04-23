@@ -15,32 +15,28 @@ class AllProducts extends React.Component {
     console.log(products)
     const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
-      return (
-        <div>
+      return (<div>
+          <Link to='/products/new'>Add new product</Link>
           <h1>No Products Here</h1>
-        </div>
-      )
+        </div>)
     } else {
-      return (
-        <div>
+      return <div>
           <div>
             <Grid relaxed="very" divided="vertically" columns={4}>
+              <Link to='/products/new'>Add new product</Link>
               <Grid.Row>
                 {products.map(product => {
-                  return (
-                    <Grid.Column key={product.id}>
+                  return <Grid.Column key={product.id}>
                       <Card centered>
                         <div key={product.id}>
                           <Card.Content centered>
-                            <Image
-                              src={product.imageUrl}
-                              size="small"
-                              centered
-                            />
+                            <Image src={product.imageUrl} size="small" centered />
                             <Link to={`/products/${product.id}`}>
                               <Card.Header> {product.name}</Card.Header>
                             </Link>
-                            <Card.Meta>Brewery: {product.brewery} </Card.Meta>
+                            <Card.Meta>
+                              Brewery: {product.brewery}{' '}
+                            </Card.Meta>
                             <Card.Description>
                               Price: ${product.price}
                             </Card.Description>
@@ -48,18 +44,15 @@ class AllProducts extends React.Component {
                           <Card.Content>
                             Alcohol Content: {product.ABV}%
                           </Card.Content>
-                          <Card.Content>Status: {product.status}</Card.Content>
-                          <Button
-                            className="mini ui red inverted button"
-                            onClick={() => removeProduct(product.id)}
-                          >
+                          <Card.Content>
+                            Status: {product.status}
+                          </Card.Content>
+                          <Button className="mini ui red inverted button" onClick={() => removeProduct(product.id)}>
                             DELETE
                           </Button>
-
                         </div>
                       </Card>
                     </Grid.Column>
-                  )
                 })}
               </Grid.Row>
             </Grid>
@@ -67,7 +60,6 @@ class AllProducts extends React.Component {
           {/* NOTE: we need to figure out totalPAges eventually  */}
           <Pagination defaultActivePage={1} totalPages={5} />
         </div>
-      )
     }
   }
 }

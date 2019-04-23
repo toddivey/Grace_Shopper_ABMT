@@ -62,7 +62,7 @@ const ProductForm = props => (
     />
     <button
       type="submit"
-      disabled={!props.name || !props.status}
+      disabled={!props.name || !props.price}
       className="submit"
     >
       Submit
