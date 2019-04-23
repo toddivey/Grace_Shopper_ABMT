@@ -14,40 +14,45 @@ class AllUsers extends React.Component {
     const removeUser = this.props.deleteUser
 
     if (!users || users.length < 1) {
-      return (
-        <div>
+      return <div>
+          <Link to="/users/new" centered>Add new user</Link>
           <h1>No users</h1>
         </div>
-      )
     } else {
-      return (
-        <div>
+      return <div>
+          <Link to="/users/new" centered>
+            Add new user
+          </Link>
           <div>
-          <Grid>
-              <Grid.Row columns = {4}>
-              {users.map (user => {
-                return (
-                  <Grid.Column key = {user.id}>
-                    <Card>
-                  <div key={user.id}>
-                  <Card.Content>
-                      <Image src={user.profilePicture} size = 'small' bordered />
-                    {/* <Link to={`/userss/${user.id}`} > */}
-                      <Card.Header> {user.firstName} {user.lastName}</Card.Header>
-                      <Card.Description>{user.firstName}'s email is {user.email}</Card.Description>
-                    {/* </Link> */}
-                    <Button type='button' onClick={() => removeUser(user.id)}>DELETE</Button>
-                    </Card.Content>
-                  </div>
-                  </Card>
-                  </Grid.Column>
-              )
-            })}
-            </Grid.Row>
+            <Grid>
+              <Grid.Row columns={4}>
+                {users.map(user => {
+                  return <Grid.Column key={user.id}>
+                      <Card>
+                        <div key={user.id}>
+                          <Card.Content>
+                            <Image src={user.profilePicture} size="small" bordered />
+                            {/* <Link to={`/userss/${user.id}`} > */}
+                            <Card.Header>
+                              {' '}
+                              {user.firstName} {user.lastName}
+                            </Card.Header>
+                            <Card.Description>
+                              {user.firstName}'s email is {user.email}
+                            </Card.Description>
+                            {/* </Link> */}
+                            <Button type="button" onClick={() => removeUser(user.id)}>
+                              DELETE
+                            </Button>
+                          </Card.Content>
+                        </div>
+                      </Card>
+                    </Grid.Column>
+                })}
+              </Grid.Row>
             </Grid>
           </div>
         </div>
-      )
     }
   }
 }

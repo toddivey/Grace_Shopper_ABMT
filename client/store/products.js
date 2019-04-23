@@ -9,6 +9,7 @@ import history from '../history'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
+
 /**
  * INITIAL STATE
  */
@@ -26,6 +27,8 @@ const removeProduct = productId => ({ type: REMOVE_PRODUCT, productId: productId
 /**
  * THUNK CREATORS
  */
+
+
 export const fetchProducts = (pageId) => async (dispatch) => {
   try {
     if(!pageId) pageId = 1

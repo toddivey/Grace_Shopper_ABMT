@@ -8,6 +8,7 @@ import {me} from '../store/user'
 
 const Navbar = ({handleClick, isLoggedIn, user}) => {
   console.log('user in navbar', user)
+
   return (
     <nav>
       <div>
@@ -29,8 +30,11 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
                 <Link to="/" onClick={handleClick}>
                   <Menu.Item as="a">Logout</Menu.Item>
                 </Link>
+                <Link to="/categories">
+                  <Menu.Item as="a">Categories</Menu.Item>
+                </Link>
                 <Link to="/cart">
-                  <Menu.Item as="a">CART GOES HERE</Menu.Item>
+                  <Menu.Item as="a">Cart</Menu.Item>
                 </Link>
               </Container>
             </div>
@@ -45,6 +49,9 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
               </Link>
               <Link to="/signup">
                 <Menu.Item as="a">Sign Up</Menu.Item>
+              </Link>
+              <Link to="/categories">
+                <Menu.Item as="a">Categories</Menu.Item>
               </Link>
               <Menu.Item as="a">
                 <Link to="/cart">Cart</Link>
