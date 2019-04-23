@@ -15,7 +15,8 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * INITIAL STATE
  */
-const defaultSingleProduct = {}
+const defaultSingleProduct = {
+}
 
 /**
  * ACTION CREATORS
@@ -119,7 +120,7 @@ export default function(state = defaultSingleProduct, action) {
     case GET_CART:
       return {...state, cart: action.cart}
     case REMOVE_PRODUCT:
-      return state.filter(product => product.id !== action.productId)
+      return state = defaultSingleProduct
     case ADD_TO_CART:
       return {...state, cart: {...state.cart, products: action.products}}
     case DELETE_FROM_CART:
