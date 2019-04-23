@@ -47,6 +47,11 @@ class SingleProduct extends React.Component {
               <Container>Description: {product.description}</Container>
               <Grid.Column>
                 <List>
+                  <List.Item>Style:
+                  <Link to={`/categories/${product.categories[0].id}`}>
+                  {product.categories[0].style}
+                  </Link>
+                   </List.Item>
                   <List.Item>Price: ${product.price}</List.Item>
                   <List.Item>ABV: {product.ABV}%</List.Item>
                   <List.Item>Inventory: {product.inventory}</List.Item>
