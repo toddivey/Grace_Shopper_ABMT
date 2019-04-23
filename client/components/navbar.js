@@ -19,24 +19,26 @@ return (
     <Menu secondary size="medium">
     
         {isLoggedIn ? (
-          <div>
+          
           <Container text>
           <Link to="/">
             <Menu.Item as="a">
               {/* The navbar will show these links after you log in */}
               Home
             </Menu.Item>
-            </Link>
-            <Link to="/" onClick={handleClick} >
+          </Link>
+          <Link to="/" onClick={handleClick} >
             <Menu.Item as="a">
               Logout
             </Menu.Item>
-            </Link>
-            <Link to="/cart">
-            <Menu.Item as="a">CART GOES HERE</Menu.Item>
-            </Link>
+          </Link>
+          <Link to ="/cart">
+            <Menu.Item as="a">
+              Cart
+            </Menu.Item>
+          </Link>          
           </Container>
-          </div>
+        
         ) : (
           <Container text>
             {/* The navbar will show these links before you log in */}
@@ -55,9 +57,11 @@ return (
               Sign Up
             </Menu.Item>
             </Link>
+            <Link to ="/cart">
             <Menu.Item as="a">
-            <Link to ="/cart">Cart</Link>
+            Cart
             </Menu.Item>
+            </Link>
           </Container>
         )}
     </Menu>
