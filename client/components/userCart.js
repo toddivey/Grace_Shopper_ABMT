@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
   fetchActiveCart,
-  productToCart
+  productToCart,
+  updateCartQuantity
 } from '../store/singleProduct'
 import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react';
 import products from '../store/products';
@@ -20,6 +21,7 @@ class UserCart extends React.Component {
     console.log('THIS IS THE CART',cart)
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
+    const updateCartQuantity = this.props.updateCartQuantity
 
     if (!cart || cart.length < 1) {
       return (
@@ -29,6 +31,7 @@ class UserCart extends React.Component {
       )
     }
     else {
+      console.log(cart.products)
       return (
         <div>
           <div id="UserCart">
@@ -40,11 +43,14 @@ class UserCart extends React.Component {
                       <Link to={`/products/${product.id}`}>
                         <List.Item>{product.name}</List.Item>
                       </Link>
+                      <List.Item>Price: {product.price}</List.Item>
                         <List.Item>
                         <div class="ui buttons">
-                        <Button class ="negative small ui button">Remove</Button>
+                       <Button class="positive small ui button" onClick={() => updateCartQuantity(product.id, cart.id,(document.getElementById(`${product.id}`).value), product.price)}>
+
+                       Update Quantity: </Button>
                         <div class="or"></div>
-                       <Button class="positive small ui button" onClick={() => console.log(document.getElementById(`${product.id}`).value)}> Update Quantity: </Button>
+                        <Button class ="negative small ui button">Remove</Button>
                        </div>
                        <div class="ui small form">
                         <input type="number" id={product.id} placeholder={product.cartProducts.quantity} min={1} max={product.inventory}/>
@@ -55,7 +61,7 @@ class UserCart extends React.Component {
                 })}
               </Grid.Column>
               <div>
-                <Header>Total Price: {cart.products.reduce((accumulator, currentProduct) => accumulator + currentProduct.price, 0)} </Header>
+                <Header>Total Price: {cart.products.reduce((accumulator, currentProduct) => accumulator + (currentProduct.price * Number(currentProduct.cartProducts.quantity)), 0)} </Header>
               </div>
             </div>
           </div>
@@ -68,7 +74,8 @@ class UserCart extends React.Component {
 const mapDispatch = dispatch => ({
   fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
   fetchActiveCart: id => dispatch(fetchActiveCart(id)),
-  productToCart: (id, cartId) => dispatch(productToCart(id, cartId))
+  productToCart: (id, cartId) => dispatch(productToCart(id, cartId)),
+  updateCartQuantity: (productId, cartId, quantity, price) => dispatch(updateCartQuantity(productId, cartId, quantity, price))
 })
 
 const mapState = (state) => {

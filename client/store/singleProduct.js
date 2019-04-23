@@ -24,7 +24,6 @@ const singleProduct = (product) => ({ type: SINGLE_PRODUCT, product: product})
 const removeProduct = (productId) => ({ type: REMOVE_PRODUCT, productId: productId })
 const getCart = (cart) => ({ type: GET_CART, cart: cart})
 const addToCart = (productId) => ({type: ADD_TO_CART, productId: productId})
-const updateCartQuantity = (productId) => ({type: UPDATE_CART})
 
 /**
  * THUNK CREATORS
@@ -39,23 +38,23 @@ export const productToCart = (productId, cartId) => async (dispatch) => {
   }
 }
 
-// export const updateCartQuantity = (productId, cartId) => async (dispatch) => {
-//   try {
-//     const user = await axios.get('/auth/me')
-//     await axios.put(`/api/users/${user.data.id}/cart/${cartId}`,[productId])
+export const updateCartQuantity = (productId, cartId, quantity, price) => async (dispatch) => {
+  try {
+    console.log('THIS IS HERE', price)
+    const user = await axios.get('/auth/me')
+    await axios.put(`/api/users/${user.data.id}/cart/${cartId}`,[productId, quantity, price])
+    const cart = await axios.get(`/api/users/${user.data.id}/cart`)
+    dispatch(getCart(cart.data[0]))
+  }catch(err){
+    console.error(err)
+  }
 
-
-//   }catch(err){
-//     console.error(err)
-//   }
-
-// }
+}
 
 export const fetchActiveCart = () => async (dispatch) => {
   try {
     const user = await axios.get('/auth/me')
     const cart = await axios.get(`/api/users/${user.data.id}/cart`)
-    console.log("CART", cart)
     dispatch(getCart(cart.data[0]))
   } catch (err) {
     console.error(err)

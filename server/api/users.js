@@ -16,6 +16,21 @@ router.get('/:userId/cart/:cartId', async (req, res, next) => {
   }
 })
 
+router.put('/:userId/cart/:cartId', async (req,res,next) => {
+  try {
+    console.log(req.body)
+    await CartProducts.update({
+      quantity: Number(req.body[1]),
+      price: req.body[2]
+    },
+    {where: {productId: req.body[0], cartId: req.params.cartId}}
+    )
+    res.send('Quantity Updated!')
+  } catch(err){
+    next(err)
+  }
+})
+
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     const data = await Cart.findOrCreate({
@@ -30,7 +45,6 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    console.log("REQ BODY", req.body[0])
     const data = await CartProducts.create({productId: req.body[0].productId, cartId:req.body[0].cartId })
     res.send("Cart Updated!")
   } catch (err) {
