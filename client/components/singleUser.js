@@ -1,15 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteUser, fetchSingleUser, fetchActiveCart} from '../store/singleUser'
+import {deleteUser, fetchSingleUser, fetchActiveCart, fetchOrders} from '../store/singleUser'
 import {Button, Image, Grid, Card} from 'semantic-ui-react';
 import FilteredReviews from './filteredReviews'
+import FilteredOrders from './filteredOrders'
 
 class SingleUser extends React.Component {
 
   componentDidMount() {
     this.props.fetchInitialUser(this.props.match.params.userId)
     this.props.fetchActiveCart(this.props.match.params.userId)
+    this.props.fetchUserOrders(this.props.match.params.userId)
   }
   render () {
     const user = this.props.user.user
@@ -27,12 +29,11 @@ class SingleUser extends React.Component {
       return <div>
           <div>
             <Grid>
-              <Card>
+              <Card centered>
                 <div key={user.id}>
                   <Card.Content>
                     <Image src={user.profilePicture} size="small" bordered />
                     <Card.Header>
-                      {' '}
                       {user.firstName} {user.lastName}
                     </Card.Header>
                     <Card.Description>
@@ -49,6 +50,7 @@ class SingleUser extends React.Component {
               </Card>
             </Grid>
             <FilteredReviews reviews={user.reviews} />
+            <FilteredOrders orders={user.orders} />
           </div>
         </div>
     }
@@ -58,7 +60,8 @@ class SingleUser extends React.Component {
 const mapDispatch = (dispatch) => ({
   fetchInitialUser: (id) => dispatch(fetchSingleUser(id)),
   deleteUser: (id) => dispatch(deleteUser(id)),
-  fetchActiveCart: (id) => dispatch(fetchActiveCart(id))
+  fetchActiveCart: (id) => dispatch(fetchActiveCart(id)),
+  fetchUserOrders: (id) => dispatch(fetchOrders(id))
 })
 
 const mapState = (state) => {

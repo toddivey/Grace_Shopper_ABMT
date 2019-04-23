@@ -10,11 +10,12 @@ const GET_CART = 'GET_CART'
 const UPDATE_USER = 'UPDATE_USER'
 const ADD_USER = 'ADD_USER'
 const GET_CURRENT_USER = 'GET_CURRENT_USER'
+const GET_ORDERS = 'GET_ORDERS'
 
 /**
  * INITIAL STATE
  */
-const defaultSingleUser= {user: {}, cart: {}}
+const defaultSingleUser= {user: {}, cart: {}, orders: []}
 
 /**
  * ACTION CREATORS
@@ -52,7 +53,18 @@ export const addUser = user => async dispatch => {
 export const updateUser = (user) => async (dispatch) => {
     try {
     dispatch(userToUpdate(user))
-    await axios.put(`/api/users/${user.id}`, user)
+    await axios.put(`/api/users/${user.id}`, user) } catch (err) {console.error(err)}}
+
+const gotUserOrders = (orders) => ({type: GET_ORDERS, orders: orders})
+
+
+/**
+ * THUNK CREATORS
+ */
+export const fetchOrders = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/orders/user/${id}`)
+    dispatch(gotUserOrders(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -61,7 +73,6 @@ export const updateUser = (user) => async (dispatch) => {
 export const fetchActiveCart = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/users/${id}/cart`)
-    console.log(res.data)
     dispatch(getActiveCart(res.data))
   } catch (err) {
     console.error(err)
@@ -109,6 +120,8 @@ export default function (state = defaultSingleUser, action) {
       return {...state, user: action.user}
     case GET_CURRENT_USER:
       return {...state, user: action.user}
+    case GET_ORDERS:
+      return {...state, orders: action.orders}
     default:
       return state
   }

@@ -51,14 +51,6 @@ export const updateProduct = (product) => async (dispatch) => {
   }
 }
 
-export const productToCart = (productId, cartId) => async (dispatch) => {
-const singleProduct = product => ({type: SINGLE_PRODUCT, product: product})
-const removeProduct = productId => ({
-  type: REMOVE_PRODUCT,
-  productId: productId
-})
-const getCart = cart => ({type: GET_CART, cart: cart})
-const addToCart = productId => ({type: ADD_TO_CART, productId: productId})
 const deleteFromCart = productId => ({
   type: DELETE_FROM_CART,
   productId
@@ -138,9 +130,8 @@ export function deleteProduct (productId) {
       } catch (err) {
         console.error(err)
       }
-    }
+    })
   }
-}
 
 /**
  * REDUCER

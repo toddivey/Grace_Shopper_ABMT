@@ -17,6 +17,8 @@ import UpdateProduct from './components/UpdateProduct'
 import UpdateUser from './components/UpdateUser'
 import CreateProduct from './components/CreateProduct'
 import CreateUser from './components/CreateUser'
+import SingleOrder from './components/SingleOrder'
+
 /**
  * COMPONENT
  */
@@ -42,6 +44,7 @@ class Routes extends Component {
         <Route path="/users/:userId/update" component={UpdateUser} />
         <Route path="/users/:userId" component={SingleUser} />
         <Route path="/reviews/:reviewId" component={SingleReview} />
+        <Route path="/orders/:orderId" component={SingleOrder} />
         <Route path="/users" component={AllUsers} />
         <Route path="/products" component={AllProducts} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
