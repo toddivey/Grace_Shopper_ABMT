@@ -27,9 +27,10 @@ return (
               {/* The navbar will show these links after you log in */}
               Home
             </Menu.Item>
+           </Link>
             <Link to="/categories">
             <Menu.Item as="a">Categories</Menu.Item>
-            </Link>
+            
           </Link>
           <Link to="/" onClick={handleClick} >
             <Menu.Item as="a">
