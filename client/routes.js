@@ -12,7 +12,9 @@ import SingleUser from './components/singleUser'
 import SingleReview from './components/singleReview'
 import AllCategories from './components/allCategories'
 import SingleCategory from './components/singleCategory'
-import userCart from './components/userCart';
+import userCart from './components/userCart'
+import SingleOrder from './components/SingleOrder'
+
 /**
  * COMPONENT
  */
@@ -34,17 +36,16 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/users/:userId" component={SingleUser} />
         <Route path="/reviews/:reviewId" component={SingleReview} />
+        <Route path="/orders/:orderId" component={SingleOrder} />
         <Route path="/users" component={AllUsers} />
         <Route path="/products" component={AllProducts} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={AllCategories} />
 
-        {isLoggedIn && (
-          <Switch>
+        {isLoggedIn && <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={LandingPage} />
-          </Switch>
-        )}
+          </Switch>}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
