@@ -18,6 +18,7 @@ const defaultState = {
   errorMessage: ''
 }
 
+
 class CreateProduct extends React.Component {
   constructor() {
     super()
