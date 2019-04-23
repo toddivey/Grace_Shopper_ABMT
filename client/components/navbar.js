@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
 import {Header, Icon, Menu, Container} from 'semantic-ui-react'
+import {me} from '../store/user'
 
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -60,7 +61,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  * CONTAINER
  */
 const mapState = state => {
-  console.log('state here', state)
   return {
     isLoggedIn: !!state.user.id,
     user: state.user
@@ -71,11 +71,12 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    getCurrentUser: () => dispatch(me())
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(Navbar))
+export default connect(mapState, mapDispatch)(Navbar)
 
 /**
  * PROP TYPES
