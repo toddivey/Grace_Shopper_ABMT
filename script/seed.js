@@ -49,7 +49,7 @@ async function seed() {
   ])
 
 
-let n = 500
+let n = 1000
   while (n > 0) {
    await Product.create({
      name: faker.commerce.productName(),
@@ -118,7 +118,7 @@ let n = 500
   //   ProductCategories.create({ categoryId: 4, productId: 4 })
   // ])
 
-  let pc = 500
+  let pc = 1000
   let prodId = 1
   while (pc > 0) {
    await ProductCategories.create({
