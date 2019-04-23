@@ -45,6 +45,7 @@
     "gulp": "^4.0.0",
     "history": "^4.9.0",
     "morgan": "^1.9.1",
+    "natives": "^1.1.6",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "pg": "^7.10.0",
