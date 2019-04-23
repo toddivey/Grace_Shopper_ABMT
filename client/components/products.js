@@ -3,27 +3,31 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { withRouter } from "react-router"
 import {deleteProduct, fetchProducts} from '../store/products'
+import {getCurrentUser} from '../store/singleUser'
 import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
 
 
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchInitialProducts(this.props.match.params.pageId)
+    this.props.fetchCurrentUser()
   }
   render() {
     const products = Array.from(this.props.products) || []
-    console.log(products)
+    const isAdmin = this.props.user.user.admin || false
     const removeProduct = this.props.deleteProduct
     if (!products || products.length < 1) {
       return (<div>
-          <Link to='/products/new'>Add new product</Link>
+          {isAdmin ? <Link to='/products/new'>Add new product</Link>: <div></div>}
           <h1>No Products Here</h1>
         </div>)
     } else {
       return <div>
+          {isAdmin ? <Link to="/products/new">
+              Add new product
+            </Link> : <div />}
           <div>
             <Grid relaxed="very" divided="vertically" columns={4}>
-              <Link to='/products/new'>Add new product</Link>
               <Grid.Row>
                 {products.map(product => {
                   return <Grid.Column key={product.id}>
@@ -47,9 +51,9 @@ class AllProducts extends React.Component {
                           <Card.Content>
                             Status: {product.status}
                           </Card.Content>
-                          <Button className="mini ui red inverted button" onClick={() => removeProduct(product.id)}>
+                          {isAdmin ? <Button className="mini ui red inverted button" onClick={() => removeProduct(product.id)}>
                             DELETE
-                          </Button>
+                          </Button> : <div></div>}
                         </div>
                       </Card>
                     </Grid.Column>
@@ -66,12 +70,14 @@ class AllProducts extends React.Component {
 
 const mapDispatch = dispatch => ({
   fetchInitialProducts: (pageId) => dispatch(fetchProducts(pageId)),
-  deleteProduct: id => dispatch(deleteProduct(id))
+  deleteProduct: id => dispatch(deleteProduct(id)),
+  fetchCurrentUser: () => dispatch(getCurrentUser())
 })
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   }
 }
 
