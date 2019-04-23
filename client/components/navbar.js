@@ -55,9 +55,9 @@ return (
               Sign Up
             </Menu.Item>
             </Link>
-            <Link to="/cart">
-            <Menu.Item as="a">CART GOES HERE</Menu.Item>
-            </Link>
+            <Menu.Item as="a">
+            <Link to ="/cart">Cart</Link>
+            </Menu.Item>
           </Container>
         )}
     </Menu>
