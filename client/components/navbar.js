@@ -16,6 +16,7 @@ return (
       <Icon name="beer" />
       <Header.Content>grace HOPper</Header.Content>
     </Header>
+    <Image src="/IMG_7360.JPG" fluid />
     <Menu secondary size="medium">
     
         {isLoggedIn ? (
