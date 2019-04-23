@@ -41,10 +41,14 @@ class UserCart extends React.Component {
                         <List.Item>{product.name}</List.Item>
                       </Link>
                         <List.Item>
-                        <div class="field">
-                       <Button class="medium ui button" onClick={() => console.log(document.getElementById(`${product.id}`).value)}> Update Quantity: </Button>
-                        <input type="number" id={product.id} placeholder={product.cartProducts.quantity} />
+                        <div class="ui buttons">
+                        <Button class ="negative small ui button">Remove</Button>
+                        <div class="or"></div>
+                       <Button class="positive small ui button" onClick={() => console.log(document.getElementById(`${product.id}`).value)}> Update Quantity: </Button>
                        </div>
+                       <div class="ui small form">
+                        <input type="number" id={product.id} placeholder={product.cartProducts.quantity} min={1} max={product.inventory}/>
+                        </div>
                       </List.Item>
                     </List>
                   )
