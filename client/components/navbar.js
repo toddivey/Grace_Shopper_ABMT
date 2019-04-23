@@ -1,28 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
 import {Header, Icon, Menu, Container} from 'semantic-ui-react'
 
+
 const Navbar = ({handleClick, isLoggedIn}) => (
+  <nav>
   <div>
     <Header as="h1">
       <Icon name="beer" />
       <Header.Content>grace HOPper</Header.Content>
     </Header>
     <Menu secondary size="medium">
-      <nav>
+    
         {isLoggedIn ? (
+          <div>
           <Container text>
             <Menu.Item as="a">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
             </Menu.Item>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
           </Container>
+          </div>
         ) : (
           <Container text>
             {/* The navbar will show these links before you log in */}
@@ -46,18 +50,20 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </Link>
           </Container>
         )}
-      </nav>
     </Menu>
     <hr />
   </div>
+  </nav>
 )
 
 /**
  * CONTAINER
  */
 const mapState = state => {
+  console.log('state here', state)
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
@@ -69,7 +75,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default withRouter(connect(mapState, mapDispatch)(Navbar))
 
 /**
  * PROP TYPES

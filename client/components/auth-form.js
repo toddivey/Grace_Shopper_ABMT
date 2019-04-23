@@ -9,7 +9,6 @@ import { runInNewContext } from 'vm';
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-  console.log(error)
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
