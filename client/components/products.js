@@ -69,7 +69,7 @@ class AllProducts extends React.Component {
               </Grid.Row>
             </Grid>
           </div>
-          {/* NOTE: we need to figure out totalPAges eventually  */}
+          {/* NOTE: we need to figure out total Pages eventually  */}
           <Pagination defaultActivePage={1} totalPages={5} />
         </div>
     }
