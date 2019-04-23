@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -8,17 +8,17 @@ import {
   productToCart
 } from '../store/singleProduct'
 import {getCurrentUser} from '../store/singleUser'
-import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react';
+import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react'
+import products from '../store/products'
 import FilteredReviews from './filteredReviews'
 
 class SingleProduct extends React.Component {
-
   componentDidMount() {
     this.props.fetchInitialProduct(this.props.match.params.productId)
     this.props.fetchActiveCart()
     this.props.fetchCurrentUser()
   }
-  render () {
+  render() {
     const product = this.props.product.product
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
@@ -30,9 +30,10 @@ class SingleProduct extends React.Component {
           <h1>No Products</h1>
         </div>
       )
-    }
-    else {
-      return <div>
+    } else {
+      console.log('i am the props', this.props)
+      return (
+        <div>
           <div id="singleProduct">
             <div key={product.id}>
               <Grid centered columns={3} divided>
@@ -53,7 +54,12 @@ class SingleProduct extends React.Component {
               </Grid.Column>
               <Grid centered columns={2} divided>
                 <Grid.Column>
-                  <Button type="button" onClick={() => addToCart(product.id, this.props.product.cart.id)}>
+                  <Button
+                    type="button"
+                    onClick={() =>
+                      addToCart(product.id, this.props.product.cart.id)
+                    }
+                  >
                     Add to Cart!
                   </Button>
                   {isAdmin ? <div><Button type="button" onClick={() => removeProduct(product.id)}>
@@ -71,6 +77,7 @@ class SingleProduct extends React.Component {
             </div>
           </div>
         </div>
+      )
     }
   }
 }
@@ -83,7 +90,7 @@ const mapDispatch = dispatch => ({
   fetchCurrentUser: () => dispatch(getCurrentUser())
 })
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     product: state.product,
     user: state.user

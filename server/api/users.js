@@ -1,8 +1,14 @@
 const router = require('express').Router()
-const {User, Review, Order, Cart, Product, CartProducts} = require('../db/models')
+const {
+  User,
+  Review,
+  Order,
+  Cart,
+  Product,
+  CartProducts
+} = require('../db/models')
 const isAdmin = require('../middleware/admin')
 module.exports = router
-
 
 router.get('/:userId/cart/:cartId', async (req, res, next) => {
   try {
@@ -11,6 +17,31 @@ router.get('/:userId/cart/:cartId', async (req, res, next) => {
       include: [User, Product]
     })
     res.send(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:userId/cart/:cartId', async (req, res, next) => {
+  try {
+    await CartProducts.update(
+      {
+        quantity: Number(req.body[1]),
+        price: req.body[2]
+      },
+      {where: {productId: req.body[0], cartId: req.params.cartId}}
+    )
+    res.send('Quantity Updated!')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:userId/cart/:cartId', async (req, res, next) => {
+  try {
+    await CartProducts.destroy({
+      where: {productId: req.body.productId, cartId: req.params.cartId}
+    })
   } catch (err) {
     next(err)
   }
@@ -30,22 +61,27 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    console.log("REQ BODY", req.body[0])
-    const data = await CartProducts.create({productId: req.body[0].productId, cartId:req.body[0].cartId })
-    res.send("Cart Updated!")
+    const data = await CartProducts.findOrCreate({
+      where: {
+        productId: req.body[0].productId,
+        cartId: req.body[0].cartId
+      }
+    })
+    res.redirect('./cart')
+    // res.send('Cart Updated!')
   } catch (err) {
+    console.log('I AM ERR', err)
     next(err)
   }
 })
 
 //will need to do eager loading once assosciations are set
-router.get('/:userId',isAdmin, async (req, res, next) => {
+router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
-    const data = await User.findOne(
-      {where: {id: Number(req.params.userId)},
+    const data = await User.findOne({
+      where: {id: Number(req.params.userId)},
       include: [Review, Order]
-    }
-    )
+    })
     res.send(data)
   } catch (err) {
     next(err)
@@ -82,25 +118,25 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.post('/',isAdmin, async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const user = await User.create(req.body)
-    res.status(201)
-    .json(user)
+    res.status(201).json(user)
   } catch (err) {
     next(err)
   }
 })
 
-router.put('/:userId',isAdmin, async (req, res, next) => {
+router.put('/:userId', isAdmin, async (req, res, next) => {
   try {
     console.log("PUT ROUTE REQ BODY", req.body)
     await User.update(
-      { email: req.body.email,
+      {
+        email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         address: req.body.address,
-        profilePicture: req.body.profilePicture,
+        profilePicture: req.body.profilePicture
       },
       {where: {id: Number(req.params.userId)}}
     )
@@ -110,7 +146,7 @@ router.put('/:userId',isAdmin, async (req, res, next) => {
   }
 })
 
-router.delete('/:userId',isAdmin, async (req, res, next) => {
+router.delete('/:userId', isAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {id: req.params.userId}
