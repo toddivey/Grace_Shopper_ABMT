@@ -7,7 +7,9 @@ import {Header, Icon, Menu, Container} from 'semantic-ui-react'
 import {me} from '../store/user'
 
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, user}) => {
+  console.log('user from navbar', user)
+return (
   <nav>
   <div>
     <Header as="h1">
@@ -19,13 +21,17 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <div>
           <Container text>
+          <Link to="/">
             <Menu.Item as="a">
               {/* The navbar will show these links after you log in */}
-              <Link to="/">Home</Link>
+              Home
             </Menu.Item>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+            </Link>
+            <Link to="/logout">
+            <Menu.Item as="a">
+              Logout
+            </Menu.Item>
+              </Link>
           </Container>
           </div>
         ) : (
@@ -55,15 +61,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <hr />
   </div>
   </nav>
-)
+)}
 
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
-    user: state.user
+        user: state.loginUser,
+        isLoggedIn: !!state.loginUser.id
   }
 }
 
