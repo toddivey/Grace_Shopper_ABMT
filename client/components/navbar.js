@@ -8,7 +8,7 @@ import {me} from '../store/user'
 
 
 const Navbar = ({handleClick, isLoggedIn, user}) => {
-  console.log('user from navbar', user)
+  console.log('user in navbar',user)
 return (
   <nav>
   <div>
@@ -27,11 +27,14 @@ return (
               Home
             </Menu.Item>
             </Link>
-            <Link to="/logout">
+            <Link to="/" onClick={handleClick} >
             <Menu.Item as="a">
               Logout
             </Menu.Item>
-              </Link>
+            </Link>
+            <Link to="/cart">
+            <Menu.Item as="a">CART GOES HERE</Menu.Item>
+            </Link>
           </Container>
           </div>
         ) : (
