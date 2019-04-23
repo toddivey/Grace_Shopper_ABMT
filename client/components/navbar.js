@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
-import {Header, Icon, Menu, Container} from 'semantic-ui-react'
+import {Header, Icon, Menu, Container, Image} from 'semantic-ui-react'
 import {me} from '../store/user'
 
-
 const Navbar = ({handleClick, isLoggedIn, user}) => {
+
   console.log('user in navbar',user)
 return (
   <nav>
@@ -70,13 +70,14 @@ return (
   </nav>
 )}
 
+
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
-        user: state.loginUser,
-        isLoggedIn: !!state.loginUser.id
+    user: state.loginUser,
+    isLoggedIn: !!state.loginUser.id
   }
 }
 

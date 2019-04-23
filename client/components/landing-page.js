@@ -4,6 +4,7 @@ import {Provider} from 'react-redux'
 import {Router} from 'react-router-dom'
 import store from '../store'
 import {Link} from 'react-router-dom'
+// import myImage from './IMG_7360.JPG'
 import {
   Button,
   Container,
@@ -26,7 +27,11 @@ import Navbar from './navbar'
 
 export const LandingPage = () => (
   <div>
+    {/* <Container>
+      <Image src={myImage} /> */}
     <AllProducts />
+    {/* </Container> */}
+
     {/* <Container style={{marginTop: '3em'}}>
     <Header as="h1">
       <Link to="/products">See All Products</Link>
