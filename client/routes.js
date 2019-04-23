@@ -17,7 +17,7 @@ import UpdateProduct from './components/UpdateProduct'
 import UpdateUser from './components/UpdateUser'
 import CreateProduct from './components/CreateProduct'
 import CreateUser from './components/CreateUser'
-import SingleOrder from './components/SingleOrder'
+import SingleOrder from './components/singleOrder'
 
 /**
  * COMPONENT
