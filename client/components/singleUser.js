@@ -26,7 +26,7 @@ class SingleUser extends React.Component {
       )
     }
     else {
-      return (<div>
+      return <div>
           <div>
             <Grid>
               <Card centered>
@@ -42,6 +42,9 @@ class SingleUser extends React.Component {
                     <Button type="button" onClick={() => removeUser(user.id)}>
                       DELETE
                     </Button>
+                    <Link to={`/users/${user.id}/update`}>
+                      UPDATE
+                    </Link>
                   </Card.Content>
                 </div>
               </Card>
@@ -49,7 +52,7 @@ class SingleUser extends React.Component {
             <FilteredReviews reviews={user.reviews} />
             <FilteredOrders orders={user.orders} />
           </div>
-        </div>)
+        </div>
     }
 }
 }

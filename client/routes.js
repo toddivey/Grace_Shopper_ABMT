@@ -12,7 +12,11 @@ import SingleUser from './components/singleUser'
 import SingleReview from './components/singleReview'
 import AllCategories from './components/allCategories'
 import SingleCategory from './components/singleCategory'
-import userCart from './components/userCart'
+import userCart from './components/userCart';
+import UpdateProduct from './components/UpdateProduct'
+import UpdateUser from './components/UpdateUser'
+import CreateProduct from './components/CreateProduct'
+import CreateUser from './components/CreateUser'
 import SingleOrder from './components/SingleOrder'
 
 /**
@@ -32,8 +36,12 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={userCart} />
+        <Route path="/products/new" component={CreateProduct} />
         <Route path="/products/page/:pageId" component={AllProducts} />
+        <Route path="/products/:productId/update" component={UpdateProduct} />
         <Route path="/products/:productId" component={SingleProduct} />
+        <Route path="/users/new" component={CreateUser} />
+        <Route path="/users/:userId/update" component={UpdateUser} />
         <Route path="/users/:userId" component={SingleUser} />
         <Route path="/reviews/:reviewId" component={SingleReview} />
         <Route path="/orders/:orderId" component={SingleOrder} />

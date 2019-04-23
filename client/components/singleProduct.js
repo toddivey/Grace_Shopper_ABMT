@@ -7,6 +7,7 @@ import {
   fetchActiveCart,
   productToCart
 } from '../store/singleProduct'
+import {getCurrentUser} from '../store/singleUser'
 import {Button, Image, Grid, List, Header, Container} from 'semantic-ui-react'
 import products from '../store/products'
 import FilteredReviews from './filteredReviews'
@@ -15,11 +16,13 @@ class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.fetchInitialProduct(this.props.match.params.productId)
     this.props.fetchActiveCart()
+    this.props.fetchCurrentUser()
   }
   render() {
     const product = this.props.product.product
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
+    const isAdmin = this.props.user.user.admin || false
 
     if (!product) {
       return (
@@ -59,12 +62,12 @@ class SingleProduct extends React.Component {
                   >
                     Add to Cart!
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => removeProduct(product.id)}
-                  >
+                  {isAdmin ? <div><Button type="button" onClick={() => removeProduct(product.id)}>
                     DELETE
                   </Button>
+                  <Link to={`/products/${product.id}/update`}>
+                    UPDATE
+                  </Link> </div>: <div></div>}
                 </Grid.Column>
               </Grid>
               <Grid centered columns={1} />
@@ -83,12 +86,14 @@ const mapDispatch = dispatch => ({
   fetchInitialProduct: id => dispatch(fetchSingleProduct(id)),
   deleteProduct: id => dispatch(deleteProduct(id)),
   fetchActiveCart: id => dispatch(fetchActiveCart(id)),
-  productToCart: (id, cartId) => dispatch(productToCart(id, cartId))
+  productToCart: (id, cartId) => dispatch(productToCart(id, cartId)),
+  fetchCurrentUser: () => dispatch(getCurrentUser())
 })
 
 const mapState = state => {
   return {
-    product: state.product
+    product: state.product,
+    user: state.user
   }
 }
 
