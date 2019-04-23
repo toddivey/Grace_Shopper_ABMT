@@ -14,6 +14,12 @@ class UserCart extends React.Component {
   componentDidMount() {
     this.props.fetchActiveCart()
   }
+
+  // componentDidUpdate(prevProps){
+  //   if (this.props.product.cart !== prevProps.product.cart){
+  //     this.props.fetchActiveCart()
+  //   }
+  // }
   render() {
     console.log('PROPS', this.props)
     const product = this.props.product.product
@@ -114,8 +120,9 @@ const mapDispatch = dispatch => ({
 })
 
 const mapState = state => {
+  console.log(state)
   return {
-    product: state.product
+    product: state.product,
   }
 }
 

@@ -24,7 +24,6 @@ router.get('/:userId/cart/:cartId', async (req, res, next) => {
 
 router.put('/:userId/cart/:cartId', async (req, res, next) => {
   try {
-    console.log(req.body)
     await CartProducts.update(
       {
         quantity: Number(req.body[1]),
@@ -40,7 +39,6 @@ router.put('/:userId/cart/:cartId', async (req, res, next) => {
 
 router.delete('/:userId/cart/:cartId', async (req, res, next) => {
   try {
-    console.log(req.body)
     await CartProducts.destroy({
       where: {productId: req.body.productId, cartId: req.params.cartId}
     })
@@ -69,6 +67,7 @@ router.post('/:userId/cart', async (req, res, next) => {
     })
     res.send('Cart Updated!')
   } catch (err) {
+    console.log('I AM ERR', err)
     next(err)
   }
 })

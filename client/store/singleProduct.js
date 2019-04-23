@@ -52,7 +52,6 @@ export const updateCartQuantity = (
   price
 ) => async dispatch => {
   try {
-    console.log('THIS IS HERE', price)
     const user = await axios.get('/auth/me')
     await axios.put(`/api/users/${user.data.id}/cart/${cartId}`, [
       productId,
@@ -68,12 +67,12 @@ export const updateCartQuantity = (
 
 export const deleteProdFromCart = (productId, cartId) => async dispatch => {
   try {
-    console.log('hi deleting', productId, cartId)
     const user = await axios.get('/auth/me')
     await dispatch(deleteFromCart(productId))
     await axios.delete(`api/users/${user.data.id}/cart/${cartId}`, {
       data: {productId: productId}
     })
+
   } catch (err) {
     console.error(err)
   }
@@ -124,11 +123,10 @@ export default function(state = defaultSingleProduct, action) {
     case ADD_TO_CART:
       return {...state, cart: {...state.cart, products: action.products}}
     case DELETE_FROM_CART:
-      console.log('product to remove', action.productId)
-      console.log('this is state', state, state.cart)
-      return state.cart.products.filter(
-        product => product.id !== action.productId
-      )
+    let newState = state.cart.products.filter(
+      product => product.id !== action.productId
+    )
+      return {...state, cart: {...state.cart, products: newState}}
     default:
       return state
   }
