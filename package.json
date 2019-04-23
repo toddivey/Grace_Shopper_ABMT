@@ -42,6 +42,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "faker": "^4.1.0",
+    "gulp": "^4.0.1",
     "history": "^4.9.0",
     "morgan": "^1.9.1",
     "natives": "^1.1.6",
