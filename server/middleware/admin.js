@@ -1,7 +1,6 @@
 
 
 module.exports = (req, res, next) => {
-  console.log('ADMIN MIDDLEWARE:', req.user.dataValues)
   if(req.user && (req.user.dataValues.admin === true)) {
      next()
   } else {

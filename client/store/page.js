@@ -28,7 +28,6 @@ const previousPage = pageId => ({type: PREVIOUS_PAGE, page: pageId})
 
 export const getNextPage = (pageId) => (dispatch) => {
   try {
-    console.log(pageId)
     pageId++
     dispatch(nextPage(pageId))
   } catch (err) {

@@ -32,7 +32,6 @@ class SingleCategory extends React.Component {
       )
     } else {
       const {id, style, description, products} = this.state.singleCategory
-      console.log('THIS SHOULD WORK', style)
       return (
       <div>
       <div>

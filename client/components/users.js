@@ -10,7 +10,6 @@ class AllUsers extends React.Component {
   }
   render() {
     const users = Array.from(this.props.users) || []
-    console.log('#########', this.props)
     const removeUser = this.props.deleteUser
 
     if (!users || users.length < 1) {

@@ -67,7 +67,6 @@ class UpdateUser extends React.Component {
   }
 
   render() {
-    console.log('THIS PROPS', this.props)
     const user = this.props.user.user
 
     if (user && user.id) {

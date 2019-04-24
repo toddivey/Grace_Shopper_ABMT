@@ -31,7 +31,6 @@ class SingleProduct extends React.Component {
         </div>
       )
     } else {
-      console.log('i am the props', this.props)
       return (
         <div>
           <div id="singleProduct">
