@@ -74,7 +74,6 @@ class UpdateProduct extends React.Component {
   }
 
   render() {
-    console.log('THIS PROPS', this.props)
     const product = this.props.product.product
 
     if (product && product.id) {

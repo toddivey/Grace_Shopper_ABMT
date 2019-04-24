@@ -8,7 +8,6 @@ import {me} from '../store/user'
 
 const Navbar = ({handleClick, isLoggedIn, user}) => {
 
-  console.log('user in navbar',user)
 return (
   <nav>
   <div>

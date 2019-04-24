@@ -22,10 +22,8 @@ class UserCart extends React.Component {
   // }
 
   render() {
-    console.log('PROPS', this.props)
     const product = this.props.product.product
     const cart = this.props.product.cart
-    console.log('THIS IS THE CART', cart)
     const removeProduct = this.props.deleteProduct
     const addToCart = this.props.productToCart
     const updateCartQuantity = this.props.updateCartQuantity
@@ -38,7 +36,6 @@ class UserCart extends React.Component {
         </div>
       )
     } else {
-      console.log(cart.products)
       return (
         <div>
           <div id="UserCart">
@@ -121,7 +118,6 @@ const mapDispatch = dispatch => ({
 })
 
 const mapState = state => {
-  console.log(state)
   return {
     product: state.product,
   }

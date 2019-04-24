@@ -36,7 +36,6 @@ class AllProducts extends React.Component {
           {pageId > 1 ? <Link to={`/products/page/${pageId - 1}`}>
               <Button className="large ui blue inverted button" onClick={() => {
                   goToPrevious(pageId)
-                  console.log('PAGE ID BEFORE FETCH', Number(pageId) - 1)
                   this.props.fetchInitialProducts(Number(pageId) - 1)
                 }}>
                 Previous Page
@@ -47,7 +46,6 @@ class AllProducts extends React.Component {
           <Link to={`/products/page/${Number(pageId) + 1}`}>
             <Button className="large ui green inverted button" onClick={() => {
                 goToNext(pageId)
-                console.log('PAGE ID BEFORE FETCH', Number(pageId) + 1)
                 this.props.fetchInitialProducts(Number(pageId) + 1)
               }}>
               Next Page

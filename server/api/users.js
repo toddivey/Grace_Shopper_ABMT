@@ -70,7 +70,6 @@ router.post('/:userId/cart', async (req, res, next) => {
     res.redirect('./cart')
     // res.send('Cart Updated!')
   } catch (err) {
-    console.log('I AM ERR', err)
     next(err)
   }
 })
@@ -129,7 +128,6 @@ router.post('/', isAdmin, async (req, res, next) => {
 
 router.put('/:userId', isAdmin, async (req, res, next) => {
   try {
-    console.log("PUT ROUTE REQ BODY", req.body)
     await User.update(
       {
         email: req.body.email,
