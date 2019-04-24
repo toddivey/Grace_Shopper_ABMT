@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -5,6 +6,8 @@ import { withRouter } from "react-router"
 import {deleteProduct, fetchProducts} from '../store/products'
 import {getCurrentUser} from '../store/singleUser'
 import {Button, Image, Grid, Card, Pagination} from 'semantic-ui-react'
+import {getNextPage, getPreviousPage} from '../store/page'
+
 
 
 
@@ -13,10 +16,16 @@ class AllProducts extends React.Component {
     this.props.fetchInitialProducts(this.props.match.params.pageId)
     this.props.fetchCurrentUser()
   }
+
   render() {
+
     const products = Array.from(this.props.products) || []
     const isAdmin = this.props.user.user.admin || false
     const removeProduct = this.props.deleteProduct
+    const goToPrevious = this.props.goToPrevious
+    const goToNext = this.props.goToNext
+    const pageId = this.props.match.params.pageId || 1
+
     if (!products || products.length < 1) {
       return (<div>
           {isAdmin ? <Link to='/products/new' centered >Add new product</Link>: <div></div>}
@@ -24,9 +33,32 @@ class AllProducts extends React.Component {
         </div>)
     } else {
       return <div>
+          {pageId > 1 ? <Link to={`/products/page/${pageId - 1}`}>
+              <Button className="large ui blue inverted button" onClick={() => {
+                  goToPrevious(pageId)
+                  console.log('PAGE ID BEFORE FETCH', Number(pageId) - 1)
+                  this.props.fetchInitialProducts(Number(pageId) - 1)
+                }}>
+                Previous Page
+              </Button>
+            </Link> : <Button className="large ui blue inverted button" disabled>
+              Previous Page
+            </Button>}
+          <Link to={`/products/page/${Number(pageId) + 1}`}>
+            <Button className="large ui green inverted button" onClick={() => {
+                goToNext(pageId)
+                console.log('PAGE ID BEFORE FETCH', Number(pageId) + 1)
+                this.props.fetchInitialProducts(Number(pageId) + 1)
+              }}>
+              Next Page
+            </Button>
+          </Link>
           {isAdmin ? <Link to="/products/new">
-              Add new product
+              <Button className="large ui purple inverted button">
+                Add new product
+              </Button>
             </Link> : <div />}
+          <div> </div>
           <div>
             <Grid relaxed="very" divided="vertically" columns={4}>
               <Grid.Row>
@@ -35,13 +67,8 @@ class AllProducts extends React.Component {
                       <Card centered>
                         <div key={product.id}>
                           <Card.Content centered>
-
-                          <Link to={`/products/${product.id}`}>
-                            <Image
-                              src={product.imageUrl}
-                              size="small"
-                              centered
-                            />
+                            <Link to={`/products/${product.id}`}>
+                              <Image src={product.imageUrl} size="small" centered />
                             </Link>
                             <Link to={`/products/${product.id}`}>
                               <Card.Header> {product.name}</Card.Header>
@@ -60,8 +87,8 @@ class AllProducts extends React.Component {
                             Status: {product.status}
                           </Card.Content>
                           {isAdmin ? <Button className="mini ui red inverted button" onClick={() => removeProduct(product.id)}>
-                            DELETE
-                          </Button> : <div></div>}
+                              DELETE
+                            </Button> : <div />}
                         </div>
                       </Card>
                     </Grid.Column>
@@ -69,8 +96,6 @@ class AllProducts extends React.Component {
               </Grid.Row>
             </Grid>
           </div>
-          {/* NOTE: we need to figure out total Pages eventually  */}
-          <Pagination defaultActivePage={1} totalPages={5} />
         </div>
     }
   }
@@ -79,13 +104,16 @@ class AllProducts extends React.Component {
 const mapDispatch = dispatch => ({
   fetchInitialProducts: (pageId) => dispatch(fetchProducts(pageId)),
   deleteProduct: id => dispatch(deleteProduct(id)),
-  fetchCurrentUser: () => dispatch(getCurrentUser())
+  fetchCurrentUser: () => dispatch(getCurrentUser()),
+  goToPrevious: (pageId) => dispatch(getPreviousPage(pageId)),
+  goToNext: (pageId) => dispatch(getNextPage(pageId))
 })
 
 const mapState = state => {
   return {
     products: state.products,
-    user: state.user
+    user: state.user,
+    page: state.page
   }
 }
 

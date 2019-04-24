@@ -3,15 +3,16 @@ import {connect} from 'react-redux'
 import {deleteOrder, fetchSingleOrder} from '../store/singleOrder'
 import {Button, Header, Container, Card} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {getCurrentUser} from '../store/singleUser'
 
 class SingleOrder extends React.Component {
   componentDidMount() {
     this.props.fetchInitialOrder(this.props.match.params.orderId)
+    this.props.fetchCurrentUser()
   }
   render() {
     const  order = this.props.singleOrder
     const removeOrder = this.props.deleteOrder
-    console.log(this.props.orderProducts)
 
     if (order.id) {
       const cleanCreatedAtDate = order.createdAt.slice(0, 10)
