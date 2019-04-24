@@ -16,7 +16,9 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
           <Icon name="beer" />
           <Header.Content>grace HOPper</Header.Content>
         </Header>
-        <Image src="/IMG_7360.JPG" fluid />
+        <div class="image">
+        <img class="ui fluid image" src="/IMG_7359.png" />
+        </div>
         <Menu secondary size="medium">
           {isLoggedIn ? (
             <div>
