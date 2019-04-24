@@ -34,9 +34,32 @@ class AllProducts extends React.Component {
         </div>)
     } else {
       return <div>
+          {pageId > 1 ? <Link to={`/products/page/${pageId - 1}`}>
+              <Button className="large ui blue inverted button" onClick={() => {
+                  goToPrevious(pageId)
+                  console.log('PAGE ID BEFORE FETCH', Number(pageId) - 1)
+                  this.props.fetchInitialProducts(Number(pageId) - 1)
+                }}>
+                Previous Page
+              </Button>
+            </Link> : <Button className="large ui blue inverted button" disabled>
+              Previous Page
+            </Button>}
+          <Link to={`/products/page/${Number(pageId) + 1}`}>
+            <Button className="large ui green inverted button" onClick={() => {
+                goToNext(pageId)
+                console.log('PAGE ID BEFORE FETCH', Number(pageId) + 1)
+                this.props.fetchInitialProducts(Number(pageId) + 1)
+              }}>
+              Next Page
+            </Button>
+          </Link>
           {isAdmin ? <Link to="/products/new">
-              Add new product
+              <Button className="large ui purple inverted button">
+                Add new product
+              </Button>
             </Link> : <div />}
+          <div> </div>
           <div>
             <Grid relaxed="very" divided="vertically" columns={4}>
               <Grid.Row>
@@ -74,22 +97,6 @@ class AllProducts extends React.Component {
               </Grid.Row>
             </Grid>
           </div>
-          {pageId > 1 ? <Link to={`/products/page/${(pageId - 1)}`}>
-            <Button className="mini ui blue inverted button" onClick={() => {
-              goToPrevious(pageId)
-              console.log('PAGE ID BEFORE FETCH', Number(pageId) - 1)
-              this.props.fetchInitialProducts(Number(pageId) - 1)}}>
-              Previous Page
-            </Button>
-          </Link>: <div> </div>}
-          <Link to={`/products/page/${(Number(pageId) + 1)}`}>
-            <Button className="mini ui green inverted button" onClick={() => {
-              goToNext(pageId)
-              console.log("PAGE ID BEFORE FETCH", Number(pageId) + 1)
-              this.props.fetchInitialProducts(Number(pageId) + 1)}} >
-              Next Page
-            </Button>
-          </Link>
         </div>
     }
   }
