@@ -20,6 +20,7 @@ class UserCart extends React.Component {
   //     this.props.fetchActiveCart()
   //   }
   // }
+
   render() {
     console.log('PROPS', this.props)
     const product = this.props.product.product

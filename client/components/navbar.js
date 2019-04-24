@@ -7,65 +7,77 @@ import {Header, Icon, Menu, Container, Image} from 'semantic-ui-react'
 import {me} from '../store/user'
 
 const Navbar = ({handleClick, isLoggedIn, user}) => {
-  console.log('user in navbar', user)
 
-  return (
-    <nav>
-      <div>
-        <Header as="h1">
-          <Icon name="beer" />
-          <Header.Content>grace HOPper</Header.Content>
-        </Header>
-        <div class="image">
-        <img class="ui fluid image" src="/IMG_7359.png" />
-        </div>
-        <Menu secondary size="medium">
-          {isLoggedIn ? (
-            <div>
-              <Container text>
-                <Link to="/">
-                  <Menu.Item as="a">
-                    {/* The navbar will show these links after you log in */}
-                    Home
-                  </Menu.Item>
-                </Link>
-                <Link to="/" onClick={handleClick}>
-                  <Menu.Item as="a">Logout</Menu.Item>
-                </Link>
-                <Link to="/categories">
-                  <Menu.Item as="a">Categories</Menu.Item>
-                </Link>
-                <Link to="/cart">
-                  <Menu.Item as="a">Cart</Menu.Item>
-                </Link>
-              </Container>
-            </div>
-          ) : (
-            <Container text>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/">
-                <Menu.Item as="a">Home</Menu.Item>
-              </Link>
-              <Link to="/login">
-                <Menu.Item as="a">Login</Menu.Item>
-              </Link>
-              <Link to="/signup">
-                <Menu.Item as="a">Sign Up</Menu.Item>
-              </Link>
-              <Link to="/categories">
-                <Menu.Item as="a">Categories</Menu.Item>
-              </Link>
-              <Menu.Item as="a">
-                <Link to="/cart">Cart</Link>
-              </Menu.Item>
-            </Container>
-          )}
-        </Menu>
-        <hr />
-      </div>
-    </nav>
-  )
-}
+  console.log('user in navbar',user)
+return (
+  <nav>
+  <div>
+    <Header as="h1">
+      <Icon name="beer" />
+      <Header.Content>grace HOPper</Header.Content>
+    </Header>
+    <Image src="/IMG_7359.png" fluid />
+    <Menu secondary size="medium">
+
+        {isLoggedIn ? (
+
+          <Container text>
+          <Link to="/">
+            <Menu.Item as="a">
+              {/* The navbar will show these links after you log in */}
+              Home
+            </Menu.Item>
+           </Link>
+            <Link to="/categories">
+            <Menu.Item as="a">Categories</Menu.Item>
+
+          </Link>
+          <Link to="/" onClick={handleClick} >
+            <Menu.Item as="a">
+              Logout
+            </Menu.Item>
+          </Link>
+          <Link to ="/cart">
+            <Menu.Item as="a">
+              Cart
+            </Menu.Item>
+          </Link>
+          </Container>
+
+        ) : (
+          <Container text>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/">
+            <Menu.Item as="a">
+              Home
+            </Menu.Item>
+            </Link>
+            <Link to="/categories">
+            <Menu.Item as="a">Categories</Menu.Item>
+            </Link>
+            <Link to="/login">
+            <Menu.Item as="a">
+              Login
+            </Menu.Item>
+            </Link>
+            <Link to="/signup">
+            <Menu.Item as="a">
+              Sign Up
+            </Menu.Item>
+            </Link>
+            <Link to ="/cart">
+            <Menu.Item as="a">
+            Cart
+            </Menu.Item>
+            </Link>
+          </Container>
+        )}
+    </Menu>
+    <hr />
+  </div>
+  </nav>
+)}
+
 
 /**
  * CONTAINER
