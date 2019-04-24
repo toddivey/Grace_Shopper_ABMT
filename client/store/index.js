@@ -9,9 +9,10 @@ import usersReducer from './users'
 import singleReviewReducer from './singleReview'
 import categoriesReducer from './categories'
 import singleOrderReducer from './singleOrder'
-import loginUserReducer from './user' 
+import loginUserReducer from './user'
+import pageReducer from './page'
 
-const reducer = combineReducers({loginUser: loginUserReducer, user: singleUserReducer, products: productsReducer, product: singleProductReducer, users: usersReducer, review: singleReviewReducer, categories: categoriesReducer, singleOrder: singleOrderReducer})
+const reducer = combineReducers({loginUser: loginUserReducer, user: singleUserReducer, products: productsReducer, product: singleProductReducer, users: usersReducer, review: singleReviewReducer, categories: categoriesReducer, singleOrder: singleOrderReducer, page: pageReducer})
 
 
 const middleware = composeWithDevTools(
@@ -28,3 +29,4 @@ export * from './users'
 export * from './singleReview'
 export * from './categories'
 export * from './singleOrder'
+export * from './page'
