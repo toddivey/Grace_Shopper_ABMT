@@ -16,11 +16,11 @@ return (
       <Icon name="beer" />
       <Header.Content>grace HOPper</Header.Content>
     </Header>
-    <Image src="/IMG_7360.JPG" fluid />
+    <Image src="/IMG_7359.png" fluid />
     <Menu secondary size="medium">
-    
+
         {isLoggedIn ? (
-          
+
           <Container text>
           <Link to="/">
             <Menu.Item as="a">
@@ -30,7 +30,7 @@ return (
            </Link>
             <Link to="/categories">
             <Menu.Item as="a">Categories</Menu.Item>
-            
+
           </Link>
           <Link to="/" onClick={handleClick} >
             <Menu.Item as="a">
@@ -41,9 +41,9 @@ return (
             <Menu.Item as="a">
               Cart
             </Menu.Item>
-          </Link>          
+          </Link>
           </Container>
-        
+
         ) : (
           <Container text>
             {/* The navbar will show these links before you log in */}
