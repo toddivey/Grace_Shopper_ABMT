@@ -2,17 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { deleteReview, fetchSingleReview } from '../store/singleReview'
 import { Button, Grid, Header, Container, Card } from 'semantic-ui-react';
+import {getCurrentUser} from '../store/singleUser'
 
 
 class SingleReview extends React.Component {
 
   componentDidMount() {
     this.props.fetchInitialReview(this.props.match.params.reviewId)
+    this.props.fetchCurrentUser()
   }
   render() {
     const review = this.props.review
     const removeReview = this.props.deleteReview
-    console.log("Props", this.props)
+    const isAdmin = this.props.user.user.admin || false
 
     if (review.id) {
       const cleanCreatedAtDate = review.createdAt.slice(0,10)
@@ -27,12 +29,12 @@ class SingleReview extends React.Component {
                   Reviewer: {review.user.firstName} {review.user.lastName}
                 </Header>
                 <Header size="small">
-                  Review written(YYYY-MM-DD): {cleanCreatedAtDate}
+                  Review written: {cleanCreatedAtDate}
                 </Header>
                 <Container>Content: {review.content}</Container>
-                <Button type="button" onClick={() => removeReview(review.id)}>
+                {isAdmin ? <Button type="button" onClick={() => removeReview(review.id)}>
                   DELETE
-                </Button>
+                </Button>: <div></div>}
               </Card>
             </div>
           </div>
@@ -48,14 +50,16 @@ class SingleReview extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  fetchInitialReview: (id) => dispatch(fetchSingleReview(id)),
-  deleteReview: (id) => dispatch(deleteReview(id))
+const mapDispatch = dispatch => ({
+  fetchInitialReview: id => dispatch(fetchSingleReview(id)),
+  fetchCurrentUser: () => dispatch(getCurrentUser()),
+  deleteReview: id => dispatch(deleteReview(id))
 })
 
 const mapState = (state) => {
   return {
-    review: state.review
+    review: state.review,
+    user: state.user
   }
 }
 

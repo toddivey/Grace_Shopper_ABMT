@@ -25,7 +25,6 @@ class AllProducts extends React.Component {
     const goToPrevious = this.props.goToPrevious
     const goToNext = this.props.goToNext
     const pageId = this.props.match.params.pageId || 1
-    console.log('PAGE ID', this.props.match.params.pageId)
 
     if (!products || products.length < 1) {
       return (<div>
